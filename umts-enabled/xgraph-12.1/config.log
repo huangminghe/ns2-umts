@@ -1,0 +1,34 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:565: checking for a BSD compatible install
+configure:618: checking whether build environment is sane
+configure:675: checking whether make sets ${MAKE}
+configure:721: checking for working aclocal
+configure:734: checking for working autoconf
+configure:747: checking for working automake
+configure:760: checking for working autoheader
+configure:773: checking for working makeinfo
+configure:792: checking if malloc debugging is wanted
+configure:816: checking for gcc
+configure:929: checking whether the C compiler (gcc  ) works
+configure:945: gcc -o conftest    conftest.c  1>&5
+configure:971: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:976: checking whether we are using GNU C
+configure:1004: checking whether gcc accepts -g
+configure:1037: checking how to run the C preprocessor
+configure:1121: checking for X
+configure:1435: checking for dnet_ntoa in -ldnet
+configure:1476: checking for dnet_ntoa in -ldnet_stub
+configure:1524: checking for gethostbyname
+configure:1622: checking for connect
+configure:1714: checking for remove
+configure:1806: checking for shmat
+configure:1907: checking for IceConnectionNumber in -lICE
+configure:1955: checking for float.h
+configure:1955: checking for limits.h
+configure:1955: checking for stdlib.h
+configure:1955: checking for string.h
+configure:1955: checking for strings.h
+configure:1955: checking for unistd.h
+configure:1996: checking for strcasecmp

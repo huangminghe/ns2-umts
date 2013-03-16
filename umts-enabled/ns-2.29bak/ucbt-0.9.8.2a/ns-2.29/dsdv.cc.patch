@@ -1,0 +1,31 @@
+--- dsdv.cc.orig	2005-01-25 17:38:47.000000000 -0500
++++ dsdv.cc	2005-03-10 11:22:41.149143360 -0500
+@@ -788,6 +788,10 @@
+       if (rte.q && rte.metric != BIG)
+ 	{
+ 	  Packet *queued_p;
++
++// Well we do observe loops here and I give a temp fix, not sure if it is
++// correct according to DSDV semantics.  -qw
++#if 0
+ 	  while ((queued_p = rte.q->deque()))
+ 	  // XXX possible loop here  
+ 	  // while ((queued_p = rte.q->deque()))
+@@ -796,6 +800,17 @@
+ 	  //  queued_p = rte.q->deque();
+ 	    recv(queued_p, 0); // give the packets to ourselves to forward
+ 	  // }
++#else
++	int qlen = rte.q->length();
++	for (int jj = 0; jj < qlen; jj++) {
++	    queued_p = rte.q->deque();
++	    recv(queued_p, 0); // give the packets to ourselves to forward
++	}
++	while ((queued_p = rte.q->deque())) {
++	    drop(queued_p);
++	}
++#endif
++
+ 	  delete rte.q;
+ 	  rte.q = 0;
+ 	  table_->AddEntry(rte); // record the now zero'd queue

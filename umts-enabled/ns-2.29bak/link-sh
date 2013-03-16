@@ -1,0 +1,82 @@
+#! /bin/sh
+#
+# This file patches the NIST installation after 
+# checking out the files for the CVS server
+# @author rouil
+# @version 1.0
+#
+
+dir=`pwd`
+nsdir=`basename $dir`
+
+#check directory
+if [ ! $nsdir = 'ns-2.29' ]
+then
+    echo "Incorrect version of ns-2."
+    echo "this patch only works with ns-2.29"
+    exit		
+fi
+
+#check if patch is already applied
+if [ -f .ns-2.29-linked ]; then
+    echo "The symbolic links have already been applied."
+    exit
+fi
+
+#link
+echo -n "Patching ."
+mkdir gen 
+echo -n "."
+ln -s bluetooth/ns-2.29/Makefile.in Makefile.in 
+echo -n "."
+ln -s ucbt-0.9.8.2a/ bluetooth 
+echo -n "."
+cd mac 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/wireless-phy.cc wireless-phy.cc
+echo -n "."
+ln -s ../bluetooth/ns-2.29/wireless-phy.h wireless-phy.h 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/arp.h arp.h 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/arp.cc arp.cc 
+echo -n "."
+cd ../common/ 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/mobilenode.h mobilenode.h 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/mobilenode.cc mobilenode.cc 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/packet.h packet.h 
+echo -n "."
+cd ../aodv/ 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/aodv.cc aodv.cc 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/aodv.h aodv.h 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/aodv_rtable.h aodv_rtable.h 
+echo -n "."
+cd ../trace 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/cmu-trace.h cmu-trace.h 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/cmu-trace.cc cmu-trace.cc 
+echo -n "."
+cd ../dsdv 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/dsdv.h dsdv.h 
+echo -n "."
+ln -s ../bluetooth/ns-2.29/rtable.h rtable.h 
+echo -n "."
+cd ../tcl/lib 
+echo -n "."
+ln -s ../../bluetooth/ns-2.29/ns-lib.tcl ns-lib.tcl 
+echo -n "."
+ln -s ../../bluetooth/ns-2.29/ns-packet.tcl ns-packet.tcl 
+echo -n "."
+cd ../..
+echo "done"
+
+#create file to mark as patched
+touch .ns-2.29-linked

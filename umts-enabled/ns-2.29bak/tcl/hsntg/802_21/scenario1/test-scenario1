@@ -1,0 +1,145 @@
+#!/bin/bash  
+
+script="scenario1"
+NB_RUN=1
+
+#adjust for loop
+let NB_RUN=NB_RUN+1
+COUNTER=1
+while [ $COUNTER -lt 4 ]; do
+    SEED=1
+    SUM_[1]=0
+    SUM_[2]=0
+    MIN_[1]=0
+    MIN_[2]=0
+    MAX_[1]=0
+    MAX_[2]=0
+    while [ $SEED -lt $NB_RUN ]; do
+	new_dir=$script-$COUNTER-$SEED
+	if [ "$1" = "clean" ]; then
+	    echo removing directory $new_dir
+	    #cd $new_dir
+	    #rm out.res
+	    #cd ..
+	    rm -r $new_dir
+	else
+	    echo Running simulation case $COUNTER run $SEED
+	    mkdir $new_dir
+	    cd $new_dir
+	    ns ../$script.tcl $COUNTER $SEED &> log.t
+	    #ns ../$script.tcl $COUNTER random &> log.t
+	    #echo Process data
+	    #cat out.res | grep ^d | grep cbr | grep MAC | column2 2 | awk -f ../loss.awk >loss.t
+	    rm out.res
+	    #echo Loss computed
+	    START_[1]=`grep "Handover1 link detected" log.t | awk '{print $2}'`
+	    echo start1 ${START_[1]}
+	    START_[2]=`grep "send redirect message using interface 0.0.2" log.t| awk '{print $2}'`
+	    echo start2 ${START_[2]}
+	    START_[2]=`echo ${START_[2]} | awk '{ if ($1>120) {print 120} else {print $1} }'`
+	    STOP=`grep "received ack for redirect packet" log.t | awk '{print $2}'`
+	    echo $STOP
+	    INDEX=1
+	    for b in $STOP ; do
+		DIFF=`echo ${START_[$INDEX]} $b | awk '{print $2-$1}'`
+		echo -n ${START_[$INDEX]} $b $DIFF >> ../$script-$COUNTER.time
+		echo diff=$DIFF
+                #compute min
+		if [ "$SEED" = "1" ]; then
+		    MIN_[$INDEX]=$DIFF
+		else
+		    TMP=`echo ${MIN_[$INDEX]} $DIFF | awk '{if ($2<$1){ print $2} else {print $1}}'`
+		    #echo "tmpMin=" $TMP
+		    if [ "$TMP" = "$DIFF" ]; then
+			MIN_[$INDEX]=$DIFF
+		    fi
+		fi
+
+		#compute max
+		if [ "$SEED" = "1" ]; then
+		    MAX_[$INDEX]=$DIFF
+		else
+		    TMP=`echo ${MAX_[$INDEX]} $DIFF | awk '{if ($2>$1){ print $2} else {print $1}}'`
+		    #echo "tmpMax=" $TMP
+		    if [ "$TMP" = "$DIFF" ]; then
+			MAX_[$INDEX]=$DIFF
+		    fi
+		fi
+		
+		#echo sum before $SUM1
+		SUM_[$INDEX]=`echo ${SUM_[$INDEX]} $DIFF | awk '{print $1+$2}'`
+		#echo sum after $SUM1
+
+		#store result in table
+		if [ "$INDEX" = "1" ]; then
+		    HANDOVER_1[$SEED]=$DIFF
+		else [ "$INDEX" = "2" ]; 
+		    HANDOVER_2[$SEED]=$DIFF
+		fi
+		let INDEX=INDEX+1
+	    done
+	    echo "" >> ../$script-$COUNTER.time
+	    cd ..
+	    #echo " "
+	fi
+	let SEED=SEED+1
+    done
+    #to do after all runs are done
+    if [ "$1" = "clean" ]; then
+	rm $script-$COUNTER.time
+	rm $script-$COUNTER.loss
+    else
+	let SEED=SEED-1
+
+	INDEX=1
+	for b in $STOP ; do
+	    echo -n "Average"${INDEX}": " >> $script-$COUNTER.time
+	    AVERAGE=`echo ${SUM_[$INDEX]} $SEED | awk '{print $1 / $2}'`
+	    echo $AVERAGE >> $script-$COUNTER.time
+            #echo "" >> $script-$COUNTER.time
+	    #compute the variance
+	    TMP=1
+	    TMP2=0
+	    VARIANCE=0
+	    while [ $TMP -lt $NB_RUN ]; do
+		if [ "$INDEX" = "1" ]; then
+		    TMP2=${HANDOVER_1[$SEED]}
+		else [ "$INDEX" = "2" ]; 
+		    TMP2=${HANDOVER_2[$SEED]}
+		fi
+		VARIANCE=`echo $VARIANCE $AVERAGE $TMP2 | awk '{print ($1+(($2-$3)*($2-$3)))}'`
+		let TMP=TMP+1
+	    done
+	    DEVIATION=`echo $VARIANCE $SEED | awk '{print sqrt($1/$2)}'`
+	    echo -n $AVERAGE "(min="${MIN_[$INDEX]}";max="${MAX_[$INDEX]}";dev="$DEVIATION") ">> $script.time
+	    let INDEX=INDEX+1
+	done
+	    
+	#packet loss
+        #LIGNE=1
+	#INFO=`sed -n ${LIGNE}p $script-${COUNTER}-1/loss.t`
+	#SEED=2
+	#while [ "$INFO" != "" ]; do
+	#    TIME=`echo ${INFO} | awk '{print $1}'`
+	#    LOSS=`echo ${INFO} | awk '{print $2}'`
+	#    while [ $SEED -lt $NB_RUN ]; do
+	#	TMP=`sed -n ${LIGNE}p $script-${COUNTER}-${SEED}/loss.t | awk '{print $2}'`
+	#	LOSS=`echo $TMP $LOSS | awk '{print $1+$2}'`
+	#	let SEED=SEED+1
+	#    done
+	#    let SEED=SEED-1
+	#    LOSS=`echo $LOSS $SEED | awk '{print $1 / $2}'`
+	#    echo $TIME $LOSS >> $script-$COUNTER.loss
+	#    SEED=2
+	#    let LIGNE=LIGNE+1
+	#    INFO=`sed -n ${LIGNE}p $script-${COUNTER}-1/loss.t`
+	#done
+    fi
+    let COUNTER=COUNTER+1
+done
+if [ "$1" = "clean" ]; then
+    rm $script.time
+else
+    echo Handover latencies
+    more $script.time
+fi

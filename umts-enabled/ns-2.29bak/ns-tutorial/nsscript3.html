@@ -1,0 +1,162 @@
+<HTML>
+
+<HEAD>
+ <TITLE>Marc Greis' Tutorial for the UCB/LBNL/VINT Network Simulator "ns"</title>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+
+<H1 ALIGN=CENTER>VI. Network dynamics</H1>
+
+<P>
+[<A HREF="nsscript2.html">Previous section</A>]
+[<A HREF="nsnew.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+
+<P>
+In this section I am going to show you an example for a dynamic network
+where the routing adjusts to a link failure. On the way there I'll show you
+how you can keep a larger number of nodes in a Tcl array instead of
+giving each node its own name.
+</P>
+
+<HR>
+
+<A NAME="first">
+<P>
+<STRONG>VI.1. Creating a larger topology</STRONG><BR>
+I suggest you call the Tcl script for this example 'example3.tcl'. You can
+already insert the <A HREF="examples/template.tcl">template</A> from 
+<A HREF="nsscript1.tcl">section IV.1</A> into the file.
+</P>
+<P>
+As always, the topology has to be created first, though this time we take a
+different approach which you will find more comfortable when you want to
+create larger topologies. The following code creates seven nodes and stores
+them in the array n().
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+for {set i 0} {$i < 7} {incr i} {
+  set n($i) [$ns node]
+}
+</PRE></CODE></TD></TABLE>
+You have certainly seen 'for' loops in other programming languages before,
+and I am sure you understand the structure at once. Note that arrays, just
+like other variables in Tcl, don't have to be declared first.
+</P>
+
+<P>
+Now we're going to connect the nodes to create a circular topology. The 
+following piece of code might look a bit more complicated at first.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+for {set i 0} {$i < 7} {incr i} {
+  $ns duplex-link $n($i) $n([expr ($i+1)%7]) 1Mb 10ms DropTail
+}
+</PRE></CODE></TD></TABLE>
+This 'for' loop connects all nodes with the next node in the array with
+the exception of the last node, which is being connected with the first
+node. To accomplish that, I used the '%' (modulo) operator.
+</P>
+
+<P>
+When you run the script now, the topology might look a bit strange in 
+nam at first, but after you hit the 're-layout' button it should look
+like the picture below.
+</P>
+<P>
+<IMG SRC="images/namss8.gif" WIDTH=425 HEIGHT=384 ALT="Nam snap shot">
+</P>
+
+<HR>
+
+<A NAME="second">
+<P>
+<STRONG>VI.2. Link failure</STRONG><BR>
+The next step is to send some data from node n(0) to node n(3).
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+#Create a UDP agent and attach it to node n(0)
+set udp0 [new Agent/UDP]
+$ns attach-agent $n(0) $udp0
+
+# Create a CBR traffic source and attach it to udp0
+set cbr0 [new Application/Traffic/CBR]
+$cbr0 set packetSize_ 500
+$cbr0 set interval_ 0.005
+$cbr0 attach-agent $udp0
+
+set null0 [new Agent/Null]
+$ns attach-agent $n(3) $null0
+
+$ns connect $udp0 $null0
+
+$ns at 0.5 "$cbr0 start"
+$ns at 4.5 "$cbr0 stop"
+</PRE></CODE></TD></TABLE>
+The code above should look familiar to you by now. The only difference
+to the last sections is that now we have to use the node array elements.
+</P>
+
+<P>
+If you start the script, you will see that the traffic takes the
+shortest path from node 0 to node 3 through nodes 1 and 2, as could
+be expected. Now we add another interesting feature. We let the link
+between node 1 and 2 (which is being used by the traffic) go down
+for a second.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns rtmodel-at 1.0 down $n(1) $n(2)
+$ns rtmodel-at 2.0 up $n(1) $n(2)
+</PRE></CODE></TD></TABLE>
+It is probably not too hard to understand these two lines. Now you
+can start the script again and you will see that between the seconds
+1.0 and 2.0 the link will be down, and all data that is sent from
+node 0 is lost.
+</P>
+
+<P>
+<IMG SRC="images/namss9.gif" WIDTH=425 HEIGHT=385 ALT="Nam snap shot">
+</P>
+
+<P>
+Now I will show you how to use dynamic routing to solve that
+'problem'. Add the following line at the beginning of your Tcl script,
+after the simulator object has been created.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns rtproto DV
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+Start the simulation again, and you will see how at first a lot of
+small packets run through the network. If you slow nam down enough to
+click on one of them, you will see that they are 'rtProtoDV' packets
+which are being used to exchange routing information between the nodes.
+When the link goes down again at 1.0 seconds, the routing will be updated
+and the traffic will be re-routed through the nodes 6, 5 and 4.
+</P>
+
+<P>
+<IMG SRC="images/namss10.gif" WIDTH=425 HEIGHT=385 ALT="Nam snap shot">
+</P>
+
+<P>
+You can download the full example <A HREF="examples/example3.tcl">here</A>.
+</P>
+
+<HR>
+
+<P>
+[<A HREF="nsscript2.html">Previous section</A>]
+[<A HREF="nsnew.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+
+ns-users <BR>
+<ADDRESS><A HREF="mailto:ns-users@isi.edu">ns-users@isi.edu</A></ADDRESS>
+
+</BODY>
+
+</HTML>

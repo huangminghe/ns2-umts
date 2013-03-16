@@ -1,0 +1,12 @@
+--- nr.hh.orig	2005-01-19 13:23:21.000000000 -0500
++++ nr.hh	2005-02-05 23:26:11.796388392 -0500
+@@ -43,7 +43,8 @@
+ typedef signed int int32_t;
+ #endif
+ typedef signed short int16_t;
+-#if defined (sparc)
++// #if defined (sparc)
++#if defined (__SVR4) && defined (__sun)
+ typedef char int8_t;
+ #else
+ // Conflicts with system declaration of int8_t in Solaris

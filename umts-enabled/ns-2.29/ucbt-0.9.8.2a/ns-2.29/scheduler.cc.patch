@@ -1,0 +1,22 @@
+--- scheduler.cc.orig	2005-01-25 17:38:47.000000000 -0500
++++ scheduler.cc	2005-04-20 03:44:48.909268232 -0400
+@@ -580,6 +580,8 @@
+ } class_calendar_sched;
+ 
+ CalendarScheduler::CalendarScheduler() : cal_clock_(clock_) {
++	// width_user_ = -1.0;
++	width_user_ = 312.5E-6;
+ 	reinit(4, 1.0, cal_clock_);
+ }
+ 
+@@ -861,6 +863,10 @@
+ double
+ CalendarScheduler::newwidth(int newsize)
+ {
++	if (width_user_ > 0) {
++		return width_user_;
++	}
++
+ 	int i;
+ 	int max_bucket = 0; // index of the fullest bucket
+ 	for (i = 1; i < nbuckets_; ++i) {

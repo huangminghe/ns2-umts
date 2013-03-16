@@ -1,0 +1,556 @@
+<HTML>
+
+<HEAD>
+<TITLE>Tutorial for the UCB/LBNL/VINT Network Simulator "ns"</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+
+<H1 ALIGN=CENTER>X. Creating Wired-cum-Wireless and MobileIP Simulations
+in ns</H1>
+
+<P>
+[<A HREF="nsscript5.html">Previous section</A>]
+[<A HREF="nsscript7.html">Next section</A>]
+[<A HREf="nsindex.html">Back to the index</A>]
+</P>   
+<P>
+<I>IMPORTANT: This tutorial chapter uses new node APIs which are not
+available in the ns2.1b5 version. So please download the <A
+HREF="http://www.isi.edu/nsnam/dist/vint/ns-src-current.tar.gz">daily 
+snapshot</A>
+unless a release is made for version ns2.1b6 or higher. The current
+snapshot version is updated daily, so please check the <A
+HREF="http://www.isi.edu/nsnam/ns/ns-tests.html">validation
+test results</A> for that day before downloading, as these snapshots can
+sometimes be unstable due to ongoing changes made by ns-developers.</I>
+</P>
+<HR>
+<A NAME="first"></A>
+<P>
+<STRONG>X.1. Creating a simple wired-cum-wireless scenario </STRONG><BR>
+</P>
+<P>
+The wireless simulation described in <A HREF="nsscript5.html">section IX</A>,
+supports multi-hop ad-hoc
+networks or wireless LANs. But we may need to simulate a topology of
+multiple LANs connected through wired nodes, or in other words we need to
+create a wired-cum-wireless topology.
+</P>
+<P>
+In this section we are going to extend the simple wireless topology
+created in section IX to create a mixed scenario
+consisting of a wireless and a wired domain, where data is exchanged between
+the mobile and non-mobile nodes. We are going to make modifications to the
+tcl script called <A HREF="examples/wireless1.tcl">wireless1.tcl</A>
+created in <A HREF="nsscript5.html#second">section IX.2</A>
+and name the resulting wired-cum-wireless scenario file wireless2.tcl.
+</P>
+<P>
+For the mixed scenario, we are going to have 2 wired nodes, W(0) and W(1),
+connected
+to our wireless domain consisting of 3 mobilenodes (nodes 0, 1 & 2)
+via a base-station node, BS.
+Base station nodes are like gateways between wireless and wired domains and
+allow packets to be exchanged between the two types of
+nodes. For details on base-station node please see section 2
+(wired-cum-wireless networking) of chapter 15 of
+<A HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">ns notes&doc (now
+renamed as ns Manual)</A>.
+Fig1. shows the topology for this example described above.
+</P>
+<P>
+<IMG SRC="images/wireless2.gif" WIDTH=590 HEIGHT=600 ALT="Fig.1">
+</P>
+<P>
+Let us begin by checking what changes need to be made to the list of
+variables defined at the beginning of wireless1.tcl.
+</P>
+<P>
+The Adhoc routing protocol is changed to DSDV. 
+Also, we define TCP and CBR connections between the wired and wireless
+nodes
+in the script itself. So we won't need to use the connection pattern file
+used in earlier simulation. Also change the simulation stop time.
+Note here that we use array opt() instead of val() simply to illustrate
+that this is no longer a global array variable and its scope is defined
+only in the test script.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set opt(adhocRouting)   DSDV
+set opt(cp)     	""       ;# cp file not used
+set opt(stop)   	300      ;# time to stop simulation
+</PRE></CODE></TD></TABLE>
+
+We define the start times for TCP flows here:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set opt(ftp1-start)      160.0
+set opt(ftp2-start)      170.0
+</PRE></CODE></TD></TABLE>
+
+Also add the following line to define number of wired and base-station nodes:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set num_wired_nodes      2
+set num_bs_nodes         1
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Now we move to the main part of the program. For mixed simulations we need
+to use hierarchical routing in order to route packets between wireless and
+wired domains. As explained in section 15.2.1 of <A
+HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">ns Manual</A>,
+in ns, the routing information for wired nodes are based on connectivity
+of the topology, i.e how are nodes connected to one another through Links.
+This connectivity information is used to populate the forwarding tables in
+each wired node. However wireless nodes have no concept of "links".
+Packets are routed in a wireless topology using their adhoc routing
+protocols which build forwarding tables by exchanging routing queries among
+its neighbours. So inorder to exchange pkts among these wired and wireless
+nodes, we use base-stations which act as gateways between the two domains.
+We seggregate wired and wireless nodes by placing them in
+different domains. Domains and sub-domains (or clusters as they are
+called here) are defined by means of hierarchical topology structure as
+shown below. After line "set ns [new Simulator]", add the following lines:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+$ns_ node-config -addressType hierarchical    
+AddrParams set domain_num_ 2           ;# number of domains
+lappend cluster_num 2 1                ;# number of clusters in each
+                                       ;#domain
+AddrParams set cluster_num_ $cluster_num
+lappend eilastlevel 1 1 4              ;# number of nodes in each cluster
+AddrParams set nodes_num_ $eilastlevel ;# for each domain
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+In the above lines we first configure the node object to have addresstype as
+Hierarchical. Next the topology hierarchy is defined. Number of domains in this
+topology is 2 (one for the wired nodes and one for the wireless). Number of
+clusters in each of these domains is defined as "2 1" which indicates the first
+domain (wired) to have 2 clusters and the second (wireless) to have 1
+cluster. The next line defines the number of nodes in each of these
+clusters which is "1 1 4"; i.e one node in each of the first 2 clusters
+(in wired domain) and 4 nodes in the cluster in the  wireless domain. So
+the topology is defined into a 3-level hierarchy (see the topology figure
+above).
+</P>
+<P>
+Next we setup tracing for the simulation. Note here that for wired-cum-wireless
+simulation traces may be generated for both wired and wireless domains. Both the
+traces are written into the same output file defined here as wireless2-out.tr.
+In order to differentiate wireless traces from wired ones, all wireless traces
+begin with "WL". We also setup nam traces. As mentioned earlier nam traces for
+wireless nodes currently show node movements only.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set tracefd  [open wireless2-out.tr w]
+set namtrace [open wireless2-out.nam w]
+$ns_ trace-all $tracefd
+$ns_ namtrace-all-wireless $namtrace $opt(x) $opt(y)
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Next we need to create the wired, wireless and base-station nodes.
+Note here that for all node creations, you have to pass the hierarchical
+address of the node.  So after line "create-god $opt(nn)", add the
+following lines for creating wired nodes:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+# create wired nodes
+set temp {0.0.0 0.1.0}           ;# hierarchical addresses to be used
+for {set i 0} {$i < $num_wired_nodes} {incr i} {
+    set W($i) [$ns_ node [lindex $temp $i]]
+}
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+In order to create base-station node, we need to configure the node structure
+as shown below. This is part of the new node API which consists of first
+configuring and then creating nodes. Refer to <A HREF="nsscript5.html#newAPI">node API</A>
+in chapterIX for details about the new node API. Since base-station nodes are
+gateways between wired and wireless domains they need to have wired
+routing mechanism turned on which is done by setting node-config option
+-wiredRouting ON. After creating 
+the base-station node we reconfigure for wireless node and so turn wiredRouting
+OFF. All other node-config options used for base-station remains the same
+for mobilenode. Also the BS(0) node is assigned as the base-station node for
+all the mobilenodes in the wireless domain, so that all pkts originating
+from mobilenodes and destined outside the wireless domain, will be
+forwarded by mobilenodes towards their assigned base-station.
+</P>
+<P>
+Note that it is important for the base-station node to be
+in the same domain as the wireless nodes. This is so that all pkts
+originating from the wired domain, and destined for a wireless node will
+reach the base-station which then uses its adhoc routing protocol to route
+the pkt to its correct destination. Thus in a mixed simulation involving
+wired and wireless nodes its necessary :
+<BR> 1) to turn on hierarchical routing
+<BR> 2) to create separate domains for wired and wireless nodes. There may
+be multiple wired and wireless domains to simulate multiple networks.
+<BR> 3) to have one base-station node in every wireless domain, thru which
+the wireless nodes may communicate with nodes outside their domain.
+</P>
+Let us go step by step for this example to see how the hierarchy is
+created. Here we have two domains, domain 0 , for wired and domain 1, for
+wireless. The two wired nodes are placed in 2 separate clusters, 0 and 1;
+thus their addresses look like 0(domain 0).0(cluster 0).0(only node) and
+0 (same domain 0).1(cluster 1).0(again only node).
+<BR>
+As for the wireless nodes, they are in domain 1; we have defined one
+cluster (0), so all nodes are in this cluster. Hence the addresses are:
+<BR>Base-station: 1(second domain,1).0(cluster 0).0(first node in cluster)
+<BR>WL node#1   : 1.0.1(second node in cluster)
+<BR>WL node#2   : 1.0.2(third node)
+<BR>WL node#3   : 1.0.3(fourth node)
+<BR>We could have placed the two wired nodes in the same cluster in wired domain
+0. Also we could have placed other wireless nodes in different clusters in
+wireless domain 1. Also depending on our topology we may have got rid of
+clusters altogether, and simply have had 2 layers of hierarchy, the domains and the
+nodes.
+ <TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+# configure for base-station node
+$ns_ node-config -adhocRouting $opt(adhocRouting) \
+                 -llType $opt(ll) \
+                 -macType $opt(mac) \
+                 -ifqType $opt(ifq) \
+                 -ifqLen $opt(ifqlen) \
+                 -antType $opt(ant) \
+                 -propType $opt(prop) \
+                 -phyType $opt(netif) \
+                 -channelType $opt(chan) \
+		 -topoInstance $topo \
+                 -wiredRouting ON \
+		 -agentTrace ON \
+                 -routerTrace OFF \
+                 -macTrace OFF 
+
+#create base-station node
+set temp {1.0.0 1.0.1 1.0.2 1.0.3}   ;# hier address to be used for
+                                     ;# wireless domain
+set BS(0) [ $ns_ node [lindex $temp 0]]
+$BS(0) random-motion 0               ;# disable random motion
+
+#provide some co-ordinates (fixed) to base station node
+$BS(0) set X_ 1.0
+$BS(0) set Y_ 2.0
+$BS(0) set Z_ 0.0
+
+# create mobilenodes in the same domain as BS(0)
+# note the position and movement of mobilenodes is as defined
+# in $opt(sc)
+# Note there has been a change of the earlier AddrParams 
+# function 'set-hieraddr' to 'addr2id'.
+
+#configure for mobilenodes
+$ns_ node-config -wiredRouting OFF
+
+# now create mobilenodes
+for {set j 0} {$j < $opt(nn)} {incr j} {
+    set node_($j) [ $ns_ node [lindex $temp \
+            [expr $j+1]] ]
+    $node_($j) base-station [AddrParams addr2id \
+            [$BS(0) node-addr]]   ;# provide each mobilenode with
+                                  ;# hier address of its base-station
+}
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Next connect wired nodes and BS and setup TCP traffic between wireless node,
+node_(0) and wired node W(0), and between W(1) and node_(2), as shown below:
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+#create links between wired and BS nodes      
+$ns_ duplex-link $W(0) $W(1) 5Mb 2ms DropTail
+$ns_ duplex-link $W(1) $BS(0) 5Mb 2ms DropTail
+
+$ns_ duplex-link-op $W(0) $W(1) orient down
+$ns_ duplex-link-op $W(1) $BS(0) orient left-down
+
+# setup TCP connections
+set tcp1 [new Agent/TCP]
+$tcp1 set class_ 2
+set sink1 [new Agent/TCPSink]
+$ns_ attach-agent $node_(0) $tcp1
+$ns_ attach-agent $W(0) $sink1
+$ns_ connect $tcp1 $sink1
+set ftp1 [new Application/FTP]
+$ftp1 attach-agent $tcp1
+$ns_ at $opt(ftp1-start) "$ftp1 start"
+
+set tcp2 [new Agent/TCP]
+$tcp2 set class_ 2
+set sink2 [new Agent/TCPSink]
+$ns_ attach-agent $W(1) $tcp2        
+$ns_ attach-agent $node_(2) $sink2
+$ns_ connect $tcp2 $sink2
+set ftp2 [new Application/FTP]
+$ftp2 attach-agent $tcp2
+$ns_ at $opt(ftp2-start) "$ftp2 start"
+
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+This would be followed by the remaining lines from wireless1.tcl (sourcing cp
+and sc files, telling mobilenodes when to stop and
+finally running ns). It is possible that some lines of code in wireless2.tcl have not been
+discussed here. For a complete copy of script wireless2.tcl, download from
+<A HREF="examples/wireless2.tcl">here</A>. 
+</P>
+Run the script. The ns and nam trace files are generated at the end of simulation
+run. Running wireless2-out.nam shows the movement of mobilenodes and traffic
+in the wired domain. As mentioned earlier, traffic flow for mobilenodes is
+not as yet supported in nam. In trace file wireless2-out.tr we see traces for
+both wired domain and wireless domain (preceeding with "WL" for wireless).
+At 160.0s, a TCP connection is setup between _3_, (which is node_(0))
+and 0, (which is W(0)). Note that
+the node-ids are created internally by the simulator and are assigned in the
+order of node creation. At 170s, another TCP connection is setup in the opposite direction,
+from the wired to the wireless domain. For details on CMUTraces see chapter
+15 of <A HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">ns documentation</A>.
+</P>
+
+<A NAME="second"></A>
+<P>
+<STRONG>X.2. Running MobileIP in a simple wired-cum-wireless
+topology</STRONG><BR>                                       
+</P>
+
+<P>
+So far we have created a wired-cum-wireless topology and have exchanged
+pkts between a wired and wireless domain via a base-station. But a mobilenode
+may roam
+outside the domain of its basestation and should still continue to receive
+packets destined to it.
+In other words it would be interesting to extend mobileIP support in the
+wired-cum-wireless scenario we created in <A
+HREF="nsscript6.html#first">section X.1</A>.
+<BR>For this example we have the same wired domain consisting of 2 wired
+nodes, W0 and W1. We have 2 base-station nodes and call them HomeAgent(HA) and
+ForeignAgent(FA) respectively.
+The wired node W1 is connected to HA and FA as shown in the figure below.
+There is a roaming mobilenode called MobileHost(MH) that moves between its
+home agent and foreign agents.
+We will set up a TCP flow between W0 and MH. As MH moves out from the
+domain of its HA, into the domain of FA, we will observe how pkts destined
+for MH is redirected by its HA to the FA as per mobileIP protocol
+definitions. See fig2 below for the topology described above.
+</P>
+<P>
+<IMG SRC="images/wireless3.gif" WIDTH=490 HEIGHT=500 ALT="Fig.2"> 
+</P>
+<P>
+We shall edit <A HREF="examples/wireless2.tcl">wireless2.tcl</A> created
+in <A HREF="nsscript6.html#first">section X.1</A> to create
+the wireless-mip script called wireless3.tcl. It may be possible that
+the whole of wireless3.tcl is not discussed here. So for convinience,
+you may download a copy of wireless3.tcl from <A
+HREF="examples/wireless3.tcl">here.</A>
+</P>
+<P>
+Change number of mobilenodes and time of simulation,
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set opt(nn)             1           ;# just one MH
+set opt(stop)           250
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+In this example we will set up the TCP connection as well as define
+movement of the MH in the script itself. Hence we are not going to use the
+cp and sc files. 
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set opt(cp)             ""
+set opt(sc)             ""
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Define the TCP flow starttime,
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set opt(ftp1-start)     100.0
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Change number of wired, base-station and mobile nodes. However note that 
+the variable num_bs_nodes is not really used in this script. The
+base-station nodes, HA and FA, are individually created and handled.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set num_wired_nodes      2
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+After the 2 lines creating ns instance and setting address format to
+hierarchical,
+add the following lines to define the topological hierarchy. It is quite similar
+to that of wireless2.tcl except that now we have a third domain for the FA.
+Change the cluster and node parameters accordingly. 
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+AddrParams set domain_num_ 3           ;# number of domains
+lappend cluster_num 2 1 1              ;# number of clusters in each domain
+AddrParams set cluster_num_ $cluster_num
+lappend eilastlevel 1 1 2 1            ;# number of nodes in each cluster 
+AddrParams set nodes_num_ $eilastlevel ;# of each domain
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+Next set up ns trace and nam files for wireless-mip,
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+set tracefd  [open wireless3-out.tr w]
+set namtrace [open wireless3-out.nam w]
+$ns_ trace-all $tracefd
+$ns_ namtrace-all-wireless $namtrace $opt(x) $opt(y)
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+So in this topology we have one wired domain (denoted by 0) and 2 wireless
+domains (denoted by 1 & 2 respectively). Hence as described in section
+X.1, the wired node addresses remain the same, 0.0.0 and 0.1.0.
+In the first wireless domain (domain 1) we have base-station, HA and 
+mobilenode, MH, in the same single cluster. Their addresses are 1.0.0 and 1.0.1 respectively.
+For the second wireless domain (domain 2) we have a base-station, FA with an
+address of 2.0.0. However in the course of the simulation, the MH will
+move into the domain of FA and we shall see how pkts originating
+from a wired domain and destined to MH will reach it as a result of the
+MobileIP protocol.
+</P>
+<P>
+Wired nodes will be created as earlier. However in place of a single
+base-station node, a HA and FA will be created. Note here that to turn the
+mobileIP flag on we have configure the node structure accordingly using option
+-mobileIP ON.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+# Configure for ForeignAgent and HomeAgent nodes
+$ns_ node-config -mobileIP ON \
+                 -adhocRouting $opt(adhocRouting) \
+                 -llType $opt(ll) \
+                 -macType $opt(mac) \
+                 -ifqType $opt(ifq) \
+                 -ifqLen $opt(ifqlen) \
+                 -antType $opt(ant) \
+                 -propType $opt(prop) \
+                 -phyType $opt(netif) \
+                 -channelType $opt(chan) \
+		 -topoInstance $topo \
+                 -wiredRouting ON \
+		 -agentTrace ON \
+                 -routerTrace OFF \
+                 -macTrace OFF 
+
+# Create HA and FA
+set HA [$ns_ node 1.0.0]
+set FA [$ns_ node 2.0.0]
+$HA random-motion 0
+$FA random-motion 0
+
+#provide some co-ord (fixed) to these base-station nodes. 
+$HA set X_ 1.000000000000
+$HA set Y_ 2.000000000000
+$HA set Z_ 0.000000000000
+
+$FA set X_ 650.000000000000
+$FA set Y_ 600.000000000000
+$FA set Z_ 0.000000000000
+</PRE></CODE></TD></TABLE>
+</P>
+<P> Next create the mobilehost as follows. Note as before we have to turn off
+the option -wiredRouting (used for creation of base-station nodes) before
+creating mobilenodes. Also the HA is setup as the home-agent for the mobilehost.
+The MH has an address called the care-of-address (COA). Based on the
+registration/beacons exchanged between the MH and the base-station node
+(of the domain the MH is currently in), the base-station's address is
+assigned as the MH's COA. Thus in this simulation, address of HA is assigned
+initially as the COA of MH.
+As MH moves in to the domain of FA, its COA changes to that of the FA. 
+For details on MobileIP implementation in ns, read section 15.2.2 of
+(in wireless networking chapter) <A
+HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">ns documentation</A>.
+Also see files mip.{cc,h}, mip-reg.{cc,h}, tcl/lib/{ns-mip.tcl, ns-wireless-mip.tcl}.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+# configure for mobilehost
+$ns_ node-config -wiredRouting OFF
+
+# create mobilehost that would be moving between HA and FA.
+# note address of MH indicates its in the same domain as HA.
+set MH [$ns_ node 1.0.1]
+set node_(0) $MH
+set HAaddress [AddrParams set-hieraddr [$HA node-addr]]
+[$MH set regagent_] set home_agent_ $HAaddress
+
+# movement of the MH
+$MH set Z_ 0.000000000000
+$MH set Y_ 2.000000000000
+$MH set X_ 2.000000000000
+
+# MH starts to move towards FA (640, 610) at a speed of 20m/s
+$ns_ at 100.000000000000 "$MH setdest 640.000000000000 610.000000000000
+20.000000000000" 
+
+# and goes back to HA (2, 2) at a speed of 20 m/s
+$ns_ at 200.000000000000 "$MH setdest 2.000000000000 2.000000000000
+20.000000000000"
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Create links between Wired nodes and HA/FA and setup TCP connection:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+# create links between wired and BaseStation nodes
+$ns_ duplex-link $W(0) $W(1) 5Mb 2ms DropTail
+$ns_ duplex-link $W(1) $HA 5Mb 2ms DropTail
+$ns_ duplex-link $W(1) $FA 5Mb 2ms DropTail
+
+$ns_ duplex-link-op $W(0) $W(1) orient down
+$ns_ duplex-link-op $W(1) $HA orient left-down
+$ns_ duplex-link-op $W(1) $FA orient right-down
+
+# setup TCP connections between a wired node and the MobileHost
+
+set tcp1 [new Agent/TCP]
+$tcp1 set class_ 2  
+set sink1 [new Agent/TCPSink]
+$ns_ attach-agent $W(0) $tcp1
+$ns_ attach-agent $MH $sink1
+$ns_ connect $tcp1 $sink1
+set ftp1 [new Application/FTP]
+$ftp1 attach-agent $tcp1
+$ns_ at $opt(ftp1-start) "$ftp1 start"
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+The rest of the script remains unchanged (i.e tell mobilenodes when the simulation
+stops). Save and run the script.
+Click <A HREF="examples/wireless3.tcl">here</A> for a copy of the file
+wireless3.tcl.
+</P>
+<P> While running the script, you may see warnings like "warning: Route to
+base_stn not known: dropping pkt". This means that as the MH moves from
+the domain of one base-station into domain of another there may be interim
+periods when it is not registered to any base-station and thus doesnot
+know whom to forward pkts destined outside its domain.
+On completion of the run, ns and nam trace output files "wireless3-out.tr" and
+"wireless3-out.nam" are created. The nam output shows the movement of the mobilehost
+and traffic flow in the wired domain. 
+The ns trace output shows traces for both the wired nodes as well as the wireless
+domain. We see routine beacon broadcast/solicitations sent out by HA/FA and
+the MH. Initially the TCP pkts are handed down to MH directly by its HA.
+As MH moves away from HA domain into the domain of the FA, we find the pkts destined
+for MH, being encapsulated and forwarded to the FA which then strips off or
+decapsulates the pkt and hands it over to the MH. 
+</P>
+<HR>
+<P>
+[<A HREF="nsscript5.html">Previous section</A>]
+[<A HREF="nsscript7.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+<P>
+VINT<BR>
+<ADDRESS><A HREF="mailto:ns-users@isi.edu">ns-users@isi.edu</A></ADDRESS>
+</P>
+
+</BODY>
+</HTML>

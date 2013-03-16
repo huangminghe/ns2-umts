@@ -1,0 +1,14 @@
+--- scheduler.cc.orig	2005-01-25 17:38:47.000000000 -0500
++++ scheduler.cc	2005-02-05 23:07:27.595292000 -0500
+@@ -877,6 +877,11 @@
+ 	
+ 	nw /= ((newsize < nsamples) ? newsize : nsamples); // min (newsize, nsamples)
+ 	nw *= 4.0;
++
++	// patched by Lisong Xu  lxu2@unity.ncsu.edu for highspeed connections.
++	// http://mailman.isi.edu/pipermail/ns-users/2003-August/035028.html
++	if (nw > 1.0e-4)
++		nw = 1.0e-4;
+ 	
+ 	return nw;
+ }

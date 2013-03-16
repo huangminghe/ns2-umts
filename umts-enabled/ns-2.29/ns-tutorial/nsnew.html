@@ -1,0 +1,385 @@
+<HTML>
+
+<HEAD>
+ <TITLE>Marc Greis' Tutorial for the UCB/LBNL/VINT Network Simulator "ns"</title>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+
+<H1 ALIGN=CENTER>VII. A new protocol for ns</H1>
+
+<P>
+[<A HREF="nsscript3.html">Previous section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+[<A HREF="nsscript4.html">Next section</A>]
+</P>
+
+<P>
+In this section I will give you an example for a new protocol that could
+be implemented in ns. You should probably become fairly familiar with ns
+before you try this yourself, and some C++ knowledge is definitely 
+necessary. You should also read at least the chapters 3.1-3.3 from
+<A HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">"ns Notes
+and Documentation" (now renamed ns Manual)</A> to understand the
+interaction between Tcl and C++.
+</P>
+
+<P>
+The code in this section implements some sort of simple 'ping' protocol
+(inspired by the 'ping requestor' in chapter 9.6 of the
+<A HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">"ns Notes
+and Documentation" (now renamed ns Manual)</A>, but fairly different). One
+node will be able to
+send a packet to another node which will return it immediately, so that
+the round-trip-time can be calculated.
+</P>
+
+<P>
+I understand that the code presented here might not be the best 
+possible implementation, and I am sure it can be improved, though I hope 
+it is easy to understand, which is the main priority here. However, 
+suggestions can be sent <A HREF="mailto:ns-users@isi.edu">here</A>.
+<HR>
+
+
+<A NAME="first">
+<P>
+<STRONG>VII.1. The header file</STRONG><BR>
+In the new header file 'ping.h' we first have to declare the data structure 
+for the new Ping packet header which is going to carry the relevant data.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+struct hdr_ping {
+  char ret;
+  double send_time;
+};
+</PRE></CODE></TD></TABLE>
+The char 'ret' is going to be set to '0' if the packet is on its way from
+the sender to the node which is being pinged, while it is going to be set
+to '1' on its way back. The double 'send_time' is a time stamp that is set
+on the packet when it is sent, and which is later used to calculate the
+round-trip-time.
+</P>
+
+<P>
+The following piece of code declares the class 'PingAgent' as a subclass
+of the class 'Agent'.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+class PingAgent : public Agent {
+ public:
+  PingAgent();
+  int command(int argc, const char*const* argv);
+  void recv(Packet*, Handler*);
+ protected:
+  int off_ping_;  
+};
+</PRE></CODE></TD></TABLE>
+In the following section, I am going to present the C++ code which
+defines the constructor 'PingAgent()' and the functions 'command()' and
+'recv()' which were redefined in this declaration. The int 'off_ping_'
+will be used to access a packet's ping header. Note that for variables
+with a local object scope usually a trailing '_' is used.
+</P>
+
+<P>
+You can download the full header file <A HREF="examples/ping.h">here</A>
+(I suggest you do that and take a quick look at it, since the code that
+was presented here isn't totally complete).
+</P>
+
+<HR>
+
+<A NAME="second">
+<P>
+<STRONG>VII.2. The C++ code</STRONG><BR>
+First the linkage between the C++ code and Tcl code has to be defined.
+It is not necessary that you fully understand this code, but it would help
+you to read the chapters 3.1-3.3 in the
+<A HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">"ns Manual"</A> if you
+haven't done that yet to understand it. 
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+static class PingHeaderClass : public PacketHeaderClass {
+public:
+  PingHeaderClass() : PacketHeaderClass("PacketHeader/Ping", 
+                                        sizeof(hdr_ping)) {}
+} class_pinghdr;
+
+
+static class PingClass : public TclClass {
+public:
+  PingClass() : TclClass("Agent/Ping") {}
+  TclObject* create(int, const char*const*) {
+    return (new PingAgent());
+  }
+} class_ping;
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+The next piece of code is the constructor for the class 'PingAgent'.
+It binds the variables which have to be accessed both in Tcl and C++.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+PingAgent::PingAgent() : Agent(PT_PING)
+{
+  bind("packetSize_", &size_);
+  bind("off_ping_", &off_ping_);
+}
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+The function 'command()' is called when a Tcl command for the
+class 'PingAgent' is executed. In our case that would be
+'$pa send' (assuming 'pa' is an instance of the Agent/Ping class),
+because we want to send ping packets from the Agent to another
+ping agent. You basically have to parse the command in the
+'command()' function, and if no match is found, you have to
+pass the command with its arguments to the 'command()' function
+of the base class (in this case 'Agent::command()'). The code
+might look very long because it's commented heavily.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+int PingAgent::command(int argc, const char*const* argv)
+{
+  if (argc == 2) {
+    if (strcmp(argv[1], "send") == 0) {
+      // Create a new packet
+      Packet* pkt = allocpkt();
+      // Access the Ping header for the new packet:
+      hdr_ping* hdr = (hdr_ping*)pkt->access(off_ping_);
+      // Set the 'ret' field to 0, so the receiving node knows
+      // that it has to generate an echo packet
+      hdr->ret = 0;
+      // Store the current time in the 'send_time' field
+      hdr->send_time = Scheduler::instance().clock();
+      // Send the packet
+      send(pkt, 0);
+      // return TCL_OK, so the calling function knows that the
+      // command has been processed
+      return (TCL_OK);
+    }
+  }
+  // If the command hasn't been processed by PingAgent()::command,
+  // call the command() function for the base class
+  return (Agent::command(argc, argv));
+}
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+The function 'recv()' defines the actions to be taken when a
+packet is received. If the 'ret' field is 0, a packet with the
+same value for the 'send_time' field, but with the 'ret' field set
+to 1 has to be returned. If 'ret' is 1, a Tcl function (which has
+to be defined by the user in Tcl) is called and processed the
+event (Important note to users of the ns version 2.1b2:
+'Address::instance().NodeShift_[1]' has to be replaced with 'NODESHIFT' 
+to get the example to work under ns 2.1b2).
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+void PingAgent::recv(Packet* pkt, Handler*)
+{
+  // Access the IP header for the received packet:
+  hdr_ip* hdrip = (hdr_ip*)pkt->access(off_ip_);
+  // Access the Ping header for the received packet:
+  hdr_ping* hdr = (hdr_ping*)pkt->access(off_ping_);
+  // Is the 'ret' field = 0 (i.e. the receiving node is being pinged)?
+  if (hdr->ret == 0) {
+    // Send an 'echo'. First save the old packet's send_time
+    double stime = hdr->send_time;
+    // Discard the packet
+    Packet::free(pkt);
+    // Create a new packet
+    Packet* pktret = allocpkt();    
+    // Access the Ping header for the new packet:
+    hdr_ping* hdrret = (hdr_ping*)pktret->access(off_ping_);
+    // Set the 'ret' field to 1, so the receiver won't send another echo
+    hdrret->ret = 1;                
+    // Set the send_time field to the correct value
+    hdrret->send_time = stime;      
+    // Send the packet              
+    send(pktret, 0);                
+  } else {                          
+    // A packet was received. Use tcl.eval to call the Tcl
+    // interpreter with the ping results.
+    // Note: In the Tcl code, a procedure 'Agent/Ping recv {from rtt}'
+    // has to be defined which allows the user to react to the ping
+    // result.                      
+    char out[100];                  
+    // Prepare the output to the Tcl interpreter. Calculate the round
+    // trip time                    
+    sprintf(out, "%s recv %d %3.1f", name(), 
+            hdrip->src_.addr_ >> Address::instance().NodeShift_[1],
+            (Scheduler::instance().clock()-hdr->send_time) * 1000);
+    Tcl& tcl = Tcl::instance();     
+    tcl.eval(out);                  
+    // Discard the packet           
+    Packet::free(pkt);              
+  }                                 
+}                                   
+</PRE></CODE></TD></TABLE>
+You can download the full file <A HREF="examples/ping.cc">here</A>.
+The most interesting part should be the 'tcl.eval()' function where a
+Tcl function 'recv' is called, with the id of the pinged node and the 
+round-trip-time (in miliseconds) as parameters. It will be shown in
+<A HREF="fourth">Section VII.4</A> how the code for this function has to
+be written. But first of all, some other files have to be edited before
+ns can be recompiled.
+</P>
+
+<HR>
+
+<A NAME="third">
+<P>
+<STRONG>VII.3. Necessary changes</STRONG><BR>
+</P>
+
+<P>
+You will have to change some things in some of the ns source files if
+you want to add a new agent, especially if it uses a new packet format.
+I suggest you always mark your changes with comments, use #ifdef, etc.,
+so you can easily remove your changes or port them to new ns releases.
+</P>
+
+<P>
+We're going to need a new packet type for the ping agent, so the first
+step is to edit the file 'packet.h'. There you can find the definitions
+for the packet protocol IDs (i.e. PT_TCP, PT_TELNET, etc.). Add a new
+definition for PT_PING there. In my
+edited version of packet.h, the last few lines of enum packet_t {} looks like
+the following code (it might look a bit different in earlier/later releases).
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+enum packet_t {
+	PT_TCP,
+	PT_UDP,
+        ......
+	// insert new packet types here
+	PT_TFRC,
+	PT_TFRC_ACK,
+        PT_PING,    //  packet protocol ID for our ping-agent
+	PT_NTYPE // This MUST be the LAST one
+};
+
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+You also have to edit the p_info() in the same file to include "Ping".
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+class p_info {
+public:
+	p_info() {
+		name_[PT_TCP]= "tcp";
+		name_[PT_UDP]= "udp";
+                ...........
+ 		name_[PT_TFRC]= "tcpFriend";
+		name_[PT_TFRC_ACK]= "tcpFriendCtl";
+
+                name_[PT_PING]="Ping";
+
+		name_[PT_NTYPE]= "undefined";
+	}
+        .....
+ }
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+Remember that you have to do a 'make depend' before you do the 'make', 
+otherwise these two files might not be recompiled.
+</P>
+
+<P>
+The file 'tcl/lib/ns-default.tcl' has to be edited too. This is the
+file where all default values for the Tcl objects are defined. Insert
+the following line to set the default packet size for Agent/Ping.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+Agent/Ping set packetSize_ 64
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+You also have to add an entry for the new ping packets in the file
+'tcl/lib/ns-packet.tcl' in the list at the beginning of the file. It
+would look like the following piece of code.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+        { SRMEXT off_srm_ext_}
+        { Ping off_ping_ }} {
+set cl PacketHeader/[lindex $pair 0]
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+The last change is a change that has to be applied to the 'Makefile'.
+You have to add the file 'ping.o' to the list of object files for ns.
+In my version the last lines of the edited list look like this:
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+sessionhelper.o delaymodel.o srm-ssm.o \
+srm-topo.o \
+ping.o \
+$(LIB_DIR)int.Vec.o $(LIB_DIR)int.RVec.o \
+$(LIB_DIR)dmalloc_support.o \
+</PRE></CODE></TD></TABLE>
+</P>
+
+<P>
+You should be able to recompile ns now simply by typing 'make' in
+the ns directory. If you are having any problems, please
+<A HREF="mailto:ns-users@isi.edu">email ns-users</A>.
+</P>
+
+<HR>
+
+<A NAME="fourth">
+<P>
+<STRONG>VII.4. The Tcl code</STRONG><BR>
+I'm not going to present the full code for a Tcl example for
+the Ping agent now. You can download a full example 
+<A HREF="examples/ping.tcl">here</A>. But I will show you how
+to write the 'recv' procedure that is called from the 'recv()'
+function in the C++ code when a ping 'echo' packet is received.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+Agent/Ping instproc recv {from rtt} {
+        $self instvar node_
+        puts "node [$node_ id] received ping answer from \
+              $from with round-trip-time $rtt ms."
+}
+</PRE></CODE></TD></TABLE>
+This code should be fairly easy to understand. The only new thing
+is that it accesses the member variable 'node_' of the base class
+'Agent' to get the node id for the node the agent is attached to.
+</P>
+
+<P>
+Now you can try some experiments of your own. A very simple experiment
+would be to <STRONG>not</STRONG> set the 'ret' field in the packets
+to 1. You can probably guess what is going to happen. You can also try
+to add some code that allows the user to send ping packets with
+'$pa send $node' (where 'pa' is a ping agent and 'node' a node) without
+having to connect the agent 'pa' with the ping agent on 'node' first,
+though that might be a little bit more complicated than it sounds at
+first. You can also read the chapter 9.6 from the
+<A HREF="http://www.isi.edu/nsnam/ns/ns-documentation.html">"ns Manual"</A> to learn
+more about creating your own agents. 
+<STRONG>Good luck</STRONG>.
+</P>
+<HR>
+
+<P>
+[<A HREF="nsscript3.html">Previous section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+[<A HREF="nsscript4.html">Next section</A>]
+</P>
+
+Marc Greis <ADDRESS><A HREF="mailto:greis@cs.uni-bonn.de">greis@cs.uni-bonn.de</A></ADDRESS>
+
+</BODY>
+
+</HTML>

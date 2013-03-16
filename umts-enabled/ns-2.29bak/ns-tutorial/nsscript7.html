@@ -1,0 +1,266 @@
+<HTML>
+<HEAD>
+<TITLE>Marc Greis' Tutorial for the UCB/LBNL/VINT Network Simulator
+"ns"</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+
+<H1 ALIGN=CENTER>XI. Generating node-movement and traffic-connection files
+for large wireless scenarios</H1>
+
+<P>
+[<A HREF="nsscript6.html">Previous section</A>]
+[<A HREf="nsindex.html">Back to the index</A>]
+</P>    
+<P>
+We have used traffic-pattern and node-movement files available with the ns
+distribution for simulation examples in <A
+HREF="nsscript5.html">section IX</A>
+and <A HREF="nsscript6.html">section X</A>. In this section we will
+discuss
+how to use CMU's traffic and scenario generating scripts to create these
+files. This section is divided into 2 subsections. The <A HREF="nsscript7.html#first">first subsection</A>
+talks about
+the traffic-pattern generating script, how it works and the random TCP and/or
+CBR flows it produces.
+The <A HREF="nsscript7.html#second">second subsection</A> is about CMU's node-movement generator "setdest"
+which can be used to create random waypoint node movements for
+mobilenodes.
+</P>
+<P>
+<I>IMPORTANT: This tutorial chapter uses a revised version of setdest 
+which is not available in the ns2.1b5 version. So please download the <A
+HREF="http://www.isi.edu/nsnam/dist/vint/ns-src-current.tar.gz">daily
+snapshot</A>
+unless a release is made for version ns2.1b6 or higher. The current
+snapshot version is updated daily, so please check the <A
+HREF="http://www.isi.edu/nsnam/ns/ns-tests.html">validation
+results</A> for that day before downloading, as these snapshots can
+sometimes be unstable due to ongoing changes made by ns-developers.</I>
+</P>
+
+<HR>
+<A NAME="first"></A>
+<P><STRONG>XI.1. Creating random traffic-pattern for wireless 
+scenarios.</STRONG>
+</P>
+<P>
+Random traffic connections of TCP and CBR can be setup between mobilenodes
+using a traffic-scenario generator script. 
+This traffic generator script is available under
+~ns/indep-utils/cmu-scen-gen and is called cbrgen.tcl. It can be used to
+create CBR and TCP traffics connections between wireless mobilenodes.
+In order to create a traffic-connection file, we need to define the type
+of traffic connection (CBR or TCP), the number of nodes and maximum number
+of connections to be setup between them, a random seed and incase of CBR
+connections, a rate whose inverse value is used to compute the interval
+time between the CBR pkts. So the command line looks like the following:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+ns cbrgen.tcl [-type cbr|tcp] [-nn nodes] [-seed seed] [-mc connections]
+[-rate rate]
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+The start times for the TCP/CBR connections are randomly generated with a
+maximum value set at 180.0s. Go through the tcl script cbrgen.tcl for the
+details of the traffic-generator implementation.
+</P>
+<P>
+For example, let us try to create a CBR connection file between 10 nodes,
+having maximum of 8 connections, with a seed value of 1.0 and a rate of
+4.0. So at the prompt type:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+ns cbrgen.tcl -type cbr -nn 10 -seed 1.0 -mc 8 -rate 4.0 > cbr-10-test
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+From cbr-10-test file (into which the output of the generator is
+redirected) thus created, one of the cbr connections looks like the
+following:
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+#
+# 2 connecting to 3 at time 82.557023746220864
+#
+set udp_(0) [new Agent/UDP]
+$ns_ attach-agent $node_(2) $udp_(0)
+set null_(0) [new Agent/Null]
+$ns_ attach-agent $node_(3) $null_(0)
+set cbr_(0) [new Application/Traffic/CBR]
+$cbr_(0) set packetSize_ 512
+$cbr_(0) set interval_ 0.25
+$cbr_(0) set random_ 1
+$cbr_(0) set maxpkts_ 10000
+$cbr_(0) attach-agent $udp_(0)
+$ns_ connect $udp_(0) $null_(0)
+$ns_ at 82.557023746220864 "$cbr_(0) start"
+</PRE></CODE></TD></TABLE>
+
+Thus a UDP connection is setup between node 2 and 3. Total UDP sources
+(chosen between nodes 0-10) and total number of connections setup is
+indicated as 5 and 8 respectively, at the end of the file cbr-10-test.
+</P>                     
+<P>
+Similarly TCP connection files can be created using "type" as tcp.
+An example would be:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+ns cbrgen.tcl -type tcp -nn 25 -seed 0.0 -mc 8 > tcp-25-test
+</PRE></CODE></TD></TABLE>
+
+A typical connection from tcp-25-test looks like the following:
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+#
+# 5 connecting to 7 at time 163.0399642433226
+#
+set tcp_(1) [$ns_ create-connection  TCP $node_(5) TCPSink $node_(7) 0]
+$tcp_(1) set window_ 32
+$tcp_(1) set packetSize_ 512
+set ftp_(1) [$tcp_(1) attach-source FTP]
+$ns_ at 163.0399642433226 "$ftp_(1) start"
+</PRE></CODE></TD></TABLE>
+</P>
+<A NAME="second"></A>
+<P><STRONG> XI.2. Creating node-movements for wireless scenarios.
+</STRONG><BR>
+</P>
+<P>
+The node-movement generator is available under
+~ns/indep-utils/cmu-scen-gen/setdest
+directory and consists of setdest{.cc,.h} and Makefile.
+CMU's version of setdest used system dependent /dev/random and made
+calls to library functions initstate() for generating random numbers. That
+was replaced with a more portable random number generator (class RNG)
+available in ns. In order to compile the revised setdest.cc do the
+following:
+
+<BR>1. Go to ns directory and run "configure" (you probably have done that
+already while building ns). This creates a makefile for setdest.
+
+<BR>2.Go to indep-utils/cmu-scen-gen/setdest. Run "make" , which first
+creates a stand-alone object file for ~ns/rng.cc (the stand-alone
+version doesnot use Tclcl libs) and then creates the executable setdest.
+
+<BR>3. Run setdest with arguments as shown below:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+./setdest [-n num_of_nodes] [-p pausetime] [-s maxspeed] [-t simtime] \
+      [-x maxx] [-y maxy] > [outdir/movement-file]
+</PRE></CODE></TD></TABLE>     
+</P>
+<P>
+Lets say we want to create a node-movement scenario consisting of 20
+nodes moving with maximum speed of 10.0m/s with an average pause between
+movement being 2s. We want the simulation to stop after 200s and the
+topology boundary is defined as 500 X 500. So our command line will look
+like:
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+./setdest -n 20 -p 2.0 -s 10.0 -t 200 -x 500 -y 500 > scen-20-test
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+The output is written to stdout by default. We redirect the output to
+file scen-20-test. The file begins with the initial position
+of the nodes and goes on to define the node movements.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+$ns_ at 2.000000000000 "$node_(0) setdest 90.441179033457 44.896095544010
+1.373556960010"
+</PRE></CODE></TD></TABLE>
+
+This line from scen-20-test defines that node_(0) at time 2.0s starts
+to move toward destination
+(90.44, 44.89) at a speed of 1.37m/s. These command lines can be used to change
+direction and speed of movement of mobilenodes.
+</P>
+<P>
+Directives for GOD are present as well in node-movement file.
+The General Operations Director (GOD) object is used to store global
+information about the state of the environment, network, or nodes that
+an omniscent observer would have, but that should not be made known to
+any participant in the simulation.
+</P>
+<P>
+Currently, the god object is used only to store an array of the
+shortest number of hops required to reach from one node to an other.
+The god object does not calculate this on the fly during simulation runs,
+since it can be quite time consuming.  The information is loaded into
+the god object from the movement pattern file where lines of the form
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+$ns_ at 899.642 "$god_ set-dist 23 46 2"
+</PRE></CODE></TD></TABLE>
+
+are used to load the god object with the knowledge that the shortest
+path between node 23 and node 46 changed to 2 hops at time 899.642.
+</P>
+<P>
+The setdest program generates node-movement files
+using the random waypoint algorithm.  These files already include the
+lines to load the god object with the appropriate information at the
+appropriate time.
+</P>
+<P>
+Another program calcdest (also available in ~ns/indep-utils/cmu-scen-gen/setdest)
+can be used to annotate movement pattern files generated by other means with
+the lines of god
+information.  calcdest makes several assumptions about the
+format of the lines in the input movement pattern file which will
+cause it to fail if the file is not formatted properly.  If
+calcdest rejects a movement pattern file you have created, the
+easiest way to format it properly is often to load it into
+ad-hockey and then save it out again.  If ad-hockey can
+read your input correctly, its output will be properly formatted for
+calcdest.
+</P>
+<P>
+Both calcdest and setdest calculate the shortest number
+of hops between nodes based on the nominal radio range, ignoring any
+effects that might be introduced by the propagation model in an actual
+simulation.  The nominal range is either provided as an argument to
+the programs, or extracted from the header on the movement pattern
+file.
+</P>
+<P>
+The path length information was used by the Monarch Project to analyze
+the path length optimality of ad hoc network routing protocols, and so
+was printed out as part of the CMUTrace output for each packet.  
+</P>
+<P>
+Other uses that CMU found for the information:
+<LI>Characterizing the rate of topology change in a movement pattern.
+<LI>Identifying the frequency and size of partitions.
+<LI>Experimenting with the behavior of the routing protocols if the
+god information is used to provide them with ``perfect'' neighbor
+information at zero cost.
+</P>
+<P>
+Thus at the end of the node-movement file are listed information like number
+of destination unreachable,
+total number of route and connectivity changes for mobilenodes and the same
+info for each mobilenode.
+</P>
+<P>
+The revised (more portable)
+version of setdest ( files revised are: setdest{.cc,.h}, ~ns/rng{.cc,.h},
+~ns/Makefile.in ) should be available from the latest ns distribution.
+If not, you could download the daily snapshot version of ns from 
+<A HREF="http://www.isi.edu/nsnam/ns/ns-build.html"> ns-build 
+page</A>.
+<HR>
+<P>
+[<A HREF="nsscript6.html">Previous section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+<P>
+VINT <BR>
+<ADDRESS><A HREF="mailto:ns-users@isi.edu">ns-users@isi.edu</A></ADDRESS>
+</P>
+
+</BODY>
+
+</HTML>  
+

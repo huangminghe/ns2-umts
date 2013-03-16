@@ -1,0 +1,251 @@
+<HTML>
+
+<HEAD>
+ <TITLE>Marc Greis' Tutorial for the UCB/LBNL/VINT Network Simulator "ns"</title>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+
+<H1 ALIGN=CENTER>IV. The first Tcl script</H1>
+
+<P>
+[<A HREF="nsbasic.html">Previous section</A>]
+[<A HREF="nsscript2.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+<P>
+In this section, you are going to develop a Tcl script for ns which 
+simulates a simple topology. You are going to learn how to set up
+nodes and links, how to send data from one node to another, how to
+monitor a queue and how to start nam from your simulation script to
+visualize your simulation.
+</P>
+<HR>
+
+<A NAME="first">
+<P>
+<STRONG>IV.1. How to start</STRONG><BR>
+Now we are going to write a 'template' that you can use for
+all of the first Tcl scripts. You can write your Tcl scripts in
+any text editor like joe or emacs. I suggest that you call this
+first example 'example1.tcl'.
+</P>
+<P>
+First of all, you need to create a simulator object. This is done with
+the command
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+set ns [new Simulator]</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Now we open a file for writing that is going to be used for the
+nam trace data.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+set nf [open out.nam w]
+$ns namtrace-all $nf
+</PRE></CODE></TD></TABLE>
+
+The first line opens the file 'out.nam' for writing and gives it
+the file handle 'nf'. In the second line we tell the simulator object
+that we created above to write all simulation data that is going to be
+relevant for nam into this file.
+</P>
+<P>
+The next step is to add a 'finish' procedure that closes the trace
+file and starts nam.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+proc finish {} {
+        global ns nf
+        $ns flush-trace
+        close $nf
+        exec nam out.nam &
+        exit 0
+}
+</PRE></CODE></TD></TABLE>
+
+You don't really have to understand all of the above code yet. It will
+get clearer to you once you see what the code does.
+</P>
+<P>
+The next line tells the simulator object to execute the 'finish'
+procedure after 5.0 seconds of simulation time.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns at 5.0 "finish"
+</PRE></CODE></TD></TABLE>
+
+You probably understand what this line does just by looking at it.
+ns provides you with a very simple way to schedule events with the 
+'at' command.
+</P>
+<P>
+The last line finally starts the simulation.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns run
+</PRE></CODE></TD></TABLE>
+
+</P>
+<P>
+You can actually save the file now and try to run it with 
+'ns example1.tcl'. You are going to get an error message like
+'nam: empty trace file out.nam' though, because until now we haven't
+defined any objects (nodes, links, etc.) or events. We are going to
+define the objects in <A HREF="#second">section 2</A> and the events
+in <A HREF="#third">section 3</A>.
+</P>
+<P>
+You will have to use the code from this section as starting point
+in the other sections. You can download it <A HREF="examples/template.tcl">here</A>.
+</P>
+
+<HR>
+
+<A NAME="second"> 
+<P> 
+<STRONG>IV.2. Two nodes, one link</STRONG><BR> 
+In this section we are going to define a very simple topology with two
+nodes that are connected by a link. The following two lines define
+the two nodes. (Note: You have to insert the code in this section
+<STRONG>before</STRONG> the line '$ns run', or even better, before the
+line '$ns at 5.0 "finish"').
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+set n0 [$ns node]
+set n1 [$ns node]
+</PRE></CODE></TD></TABLE>
+
+A new node object is created with the command '$ns node'. The
+above code creates two nodes and assigns them to the handles 'n0' and
+'n1'. 
+</P>
+<P>
+The next line connects the two nodes.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail
+</PRE></CODE></TD></TABLE>
+
+This line tells the simulator object to connect the nodes n0 and n1
+with a duplex link with the bandwidth 1Megabit, a delay of 10ms and a
+DropTail queue.
+</P>
+<P>
+Now you can save your file and start the script with 'ns example1.tcl'.
+nam will be started automatically and you should see an output that
+resembles the picture below.
+</P>
+<P>
+<IMG SRC="images/namss2.gif" WIDTH=334 HEIGHT=199 ALT="Nam snap shot">
+</P>
+<P>
+You can download the complete example <A HREF="examples/example1a.tcl">here</A>
+if it doesn't work for you and you think you might have made a mistake.
+</P>
+
+<HR>
+
+<A NAME="third">
+<P>
+<STRONG>IV.3 Sending data</STRONG><BR>
+Of course, this example isn't very satisfying yet, since you can only look at
+the topology, but nothing actually happens, so the next step is to send
+some data from node n0 to node n1. In ns, data is always being sent from one
+'agent' to another. So the next step is to create an agent object that sends
+data from node n0, and another agent object that receives the data on node
+n1.
+
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+#Create a UDP agent and attach it to node n0
+set udp0 [new Agent/UDP]
+$ns attach-agent $n0 $udp0
+
+# Create a CBR traffic source and attach it to udp0
+set cbr0 [new Application/Traffic/CBR]
+$cbr0 set packetSize_ 500
+$cbr0 set interval_ 0.005
+$cbr0 attach-agent $udp0
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+These lines create a UDP agent and attach it to the node n0, then attach a CBR 
+traffic generatot to the UDP agent. CBR stands for
+'constant bit rate'. Line 7 and 8 should be self-explaining.
+The packetSize is being set to 500 bytes and a packet will be sent every
+0.005 seconds (i.e. 200 packets per second). You can find the relevant
+parameters for each agent type in the 
+<A HREF="http://www.isi.edu/nsnam/ns/doc/index.html">ns manual page</A><BR>
+</P>
+<P>
+The next lines create a Null agent which acts as traffic sink and attach it to 
+node n1.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+set null0 [new Agent/Null] 
+$ns attach-agent $n1 $null0
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+Now the two agents have to be connected with each other.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns connect $udp0 $null0
+</PRE></CODE></TD></TABLE>
+</P>
+<P>
+And now we have to tell the CBR agent when to send data and when to stop sending. 
+Note: It's probably best to put the following lines just before the line
+'$ns at 5.0 "finish"'.
+<TABLE BGCOLOR="#eeeeee" CELLPADDING=5><TD><CODE><PRE>
+
+$ns at 0.5 "$cbr0 start"
+$ns at 4.5 "$cbr0 stop"
+</PRE></CODE></TD></TABLE>
+This code should be self-explaining again.
+</P>
+<P>
+Now you can save the file and start the simulation again. When you click on
+the 'play' button in the nam window, you will see that after 0.5 simulation
+seconds, node 0 starts sending data packets to node 1. You might want to slow
+nam down then with the 'Step' slider.
+</P>
+<P>
+<IMG SRC="images/namss3.gif" WIDTH=334 HEIGHT=199 ALT="Nam snap shot">
+</P>
+<P>
+I suggest that now you start some experiments with nam and the Tcl script.
+You can click on any packet in the nam window to monitor it, and you can also
+click directly on the link to get some graphs with statistics. I also suggest 
+that you try to change the 'packetsize_' and 'interval_' parameters in the
+Tcl script to see what happens. You can download the full example 
+<A HREF="examples/example1b.tcl">here</A>.
+</P>
+
+<P>
+Most of the information that I needed to be able to write this Tcl script
+was taken directly from the example files in the 'tcl/ex/' directory, while
+I learned which CBR agent arguments (packetSize_, interval_) I had to set from
+the <A HREF="http://www.isi.edu/nsnam/ns/doc/index.html">ns manual page</A>.
+</P>
+
+<HR>
+
+<P>
+[<A HREF="nsbasic.html">Previous section</A>]
+[<A HREF="nsscript2.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+
+ns-users<BR>
+<ADDRESS><A HREF="mailto:ns-users@isi.edu">ns-users@isi.edu</A></ADDRESS>
+
+</BODY>
+
+</HTML>

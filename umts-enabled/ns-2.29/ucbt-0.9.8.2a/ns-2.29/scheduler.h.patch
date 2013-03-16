@@ -1,0 +1,10 @@
+--- scheduler.h.orig	2005-01-19 13:23:18.000000000 -0500
++++ scheduler.h	2005-06-13 18:37:17.000000000 -0400
+@@ -70,6 +70,7 @@
+  */
+ class Handler {
+  public:
++	virtual ~Handler() {}
+ 	virtual void handle(Event* event) = 0;
+ };
+ 

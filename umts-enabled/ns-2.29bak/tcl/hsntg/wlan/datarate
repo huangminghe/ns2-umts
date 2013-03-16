@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Bash file to run datarate simulations for different modulation and cyclic prefix
+# @author rouil
+
+if [ "$1" == "clean" ]; then
+    rm -r res_datarate
+else
+    mkdir res_datarate
+    cd res_datarate
+    		
+    ns ../node802.11.tcl &> log.t
+    
+    DATARATE=`grep ^r out.res|grep "cbr"| grep MAC | awk 'BEGIN{first=-1; last=-1} {if (first==-1) {first=$3}; last=$3; i+=$37-0;} END {print (8*i/(last-first))}'`
+    echo " datarate = " $DATARATE
+    #rm out.res
+    #rm log.t
+    cd ..
+fi
+

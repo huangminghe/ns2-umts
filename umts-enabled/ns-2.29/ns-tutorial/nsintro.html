@@ -1,0 +1,86 @@
+<HTML>
+
+<HEAD>
+ <TITLE>Marc Greis' Tutorial for the UCB/LBNL/VINT Network Simulator "ns"</title>
+</HEAD>
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+
+<CENTER><IMG SRC="images/title2.gif" WIDTH=291 HEIGHT=56 ALT="Marc Greis' Tutorial for the Network Simulator ns"></CENTER>
+<H1 ALIGN=CENTER>I. Introduction</H1>
+
+<P>
+[<A HREF="nsdoc.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+<P>
+<STRONG>Disclaimer:</STRONG>
+This tutorial was originally developed by <A HREF="mailto:greis@cs.uni-bonn.de">Marc Greis</A>.
+Currently the tutorial is maintained and being expanded by the
+<A HREF="http://www.isi.edu/nsnam/ns/">VINT</A> group.
+</P>
+Please note: if there is any problem with the example scripts provided below, please refer to the test suites (~ns/tcl/test/test-suite-greis.tcl and test-suite-WLtutorial.tcl) for and lastest updates and let us know, thanks.
+<HR WIDTH="100%">
+<P>
+Since you have found this page, I assume that you already know what ns is
+and where you can get it from. If not, I suggest you either go to the
+<A HREF="http://netweb.usc.edu/vint/">web page for the VINT project</A>
+or the <A HREF="http://www.isi.edu/nsnam/ns/index.html">web page for
+ns (version 2)</A>. Note: In these pages I describe ns version 2.
+<A HREF="http://www-nrg.ee.lbl.gov/ns/">Version 1</A> is different,
+though there is a backwards compatibility library in version 2.
+</P>
+
+<P>
+The purpose of these pages is to make it easier for new ns users to use
+ns and nam, to create their own simulation scenarios for these tools and
+to eventually add new functionality to ns. I have found the 
+<A HREF="nsdoc.html">existing documentation</A> to be rather useful 
+for users who already know the basic features of ns, while it can 
+be a bit tedious for new users to extract the necessary information 
+from the manuals and the example scripts. In this tutorial I will 
+lead you through some simple examples, introducing more and more 
+new features as we go along. The ultimate goal is that after a
+short time you are able to efficiently use ns and to find any further
+information you might need in the existing documentation. For this purpose
+I will also try to tell you where I found the information in this tutorial 
+myself, so you not only learn how to use ns, but also how to use its
+documentation.
+</P>
+
+<P>
+The web is probably the best medium for a tutorial like this, because
+it's not only possible to add pictures (or even animations) for the 
+examples, but you can also directly download the examples if you don't
+have the time for typing them in yourself (though I would suggest doing
+that at least for the first few examples). I chose a frame-oriented
+design for these pages, since it makes them easier to navigate. If you
+find that the left frame with the contents takes up too much room or if
+you just don't like frames, you can switch to a 
+<A HREF="nsindex.html" TARGET="_top">frameless version</A>.
+</P>
+
+<P>
+Please understand that I can not give you a full reference manual for ns 
+here, or a full Tcl/C++ tutorial, and that in a simple tutorial like this I 
+can not help you with special problems like installation problems. There are 
+better sources for that which I am going to list in 
+<A HREF="nsdoc.html">Section II.</A>
+</P>
+
+<P>
+If you have any suggestions, find any bugs or problems, have any comments  
+and also if you have any new (well-documented) examples that could be 
+added here, please send email to <A HREF="mailto:ns-users@isi.edu">
+ns-users</A> mailing list.
+</P>
+
+<P>
+[<A HREF="nsdoc.html">Next section</A>]
+[<A HREF="nsindex.html">Back to the index</A>]
+</P>
+
+ns-users <BR>
+<ADDRESS><A HREF="mailto:ns-users@isi.edu">ns-users@isi.edu</A></ADDRESS>
+
+
+
