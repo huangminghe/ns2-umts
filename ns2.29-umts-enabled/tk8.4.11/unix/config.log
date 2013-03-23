@@ -1,0 +1,186 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:586: checking for Tcl configuration
+configure:667: checking for existence of /home/eric/ns/ns-allinone-2.29/tcl8.4.11/unix/tclConfig.sh
+configure:742: checking whether to use symlinks for manpages
+configure:754: checking whether to compress the manpages
+configure:777: checking whether to add a package name suffix for the manpages
+configure:805: checking for gcc
+configure:918: checking whether the C compiler (gcc  ) works
+configure:934: gcc -o conftest    conftest.c  1>&5
+configure:960: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:965: checking whether we are using GNU C
+configure:974: gcc -E conftest.c
+configure:993: checking whether gcc accepts -g
+configure:1026: checking how to run the C preprocessor
+configure:1047: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1109: checking for unistd.h
+configure:1119: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1109: checking for limits.h
+configure:1119: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1154: checking if the compiler understands -pipe
+configure:1165: gcc -pipe -c   conftest.c 1>&5
+configure:1185: checking for building with threads
+configure:1725: checking how to build libraries
+configure:1764: checking for ranlib
+configure:1796: checking if 64bit support is requested
+configure:1816: checking if 64bit Sparc VIS support is requested
+configure:1840: checking system version (for dynamic loading)
+configure:1866: checking for dlopen in -ldl
+configure:1885: gcc -pipe -o conftest    conftest.c -ldl   1>&5
+configure:1933: checking for ar
+configure:3610: checking for build with symbols
+configure:3671: checking for required early compiler flags
+configure:3685: gcc -pipe -c   conftest.c 1>&5
+configure:3734: gcc -pipe -c   conftest.c 1>&5
+configure: In function 'main':
+configure:3730: error: storage size of 'buf' isn't known
+configure: failed program was:
+#line 3727 "configure"
+#include "confdefs.h"
+#include <sys/stat.h>
+int main() {
+struct stat64 buf; int i = stat64("/", &buf);
+; return 0; }
+configure:3750: gcc -pipe -c   conftest.c 1>&5
+configure:3779: checking for 64-bit integer type
+configure:3794: gcc -pipe -c   conftest.c 1>&5
+configure: In function 'main':
+configure:3790: error: '__int64' undeclared (first use in this function)
+configure:3790: error: (Each undeclared identifier is reported only once
+configure:3790: error: for each function it appears in.)
+configure:3790: error: expected ';' before 'value'
+configure: failed program was:
+#line 3787 "configure"
+#include "confdefs.h"
+
+int main() {
+__int64 value = (__int64) 0;
+; return 0; }
+configure:3817: gcc -pipe -c   conftest.c 1>&5
+configure:3842: checking for struct dirent64
+configure:3856: gcc -pipe -c   conftest.c 1>&5
+configure:3850:24: error: sys/dirent.h: No such file or directory
+configure: In function 'main':
+configure:3852: error: storage size of 'p' isn't known
+configure: failed program was:
+#line 3848 "configure"
+#include "confdefs.h"
+#include <sys/types.h>
+#include <sys/dirent.h>
+int main() {
+struct dirent64 p;
+; return 0; }
+configure:3877: checking for struct stat64
+configure:3891: gcc -pipe -c   conftest.c 1>&5
+configure:3914: checking for open64
+configure:3942: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure:3914: checking for lseek64
+configure:3942: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure:3967: checking for off64_t
+configure:3981: gcc -pipe -c   conftest.c 1>&5
+configure:4011: checking whether byte ordering is bigendian
+configure:4029: gcc -pipe -c   conftest.c 1>&5
+configure:4044: gcc -pipe -c   conftest.c 1>&5
+configure: In function 'main':
+configure:4039: error: 'not' undeclared (first use in this function)
+configure:4039: error: (Each undeclared identifier is reported only once
+configure:4039: error: for each function it appears in.)
+configure:4039: error: expected ';' before 'big'
+configure: failed program was:
+#line 4033 "configure"
+#include "confdefs.h"
+#include <sys/types.h>
+#include <sys/param.h>
+int main() {
+
+#if BYTE_ORDER != BIG_ENDIAN
+ not big endian
+#endif
+; return 0; }
+configure:4127: checking for sin
+configure:4155: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure:4139: warning: conflicting types for built-in function 'sin'
+/tmp/ccZ8Hui6.o: In function `main':
+conftest.c:(.text+0x12): undefined reference to `sin'
+collect2: ld returned 1 exit status
+configure: failed program was:
+#line 4132 "configure"
+#include "confdefs.h"
+/* System header to define __stub macros and hopefully few prototypes,
+    which can conflict with char sin(); below.  */
+#include <assert.h>
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char sin();
+
+int main() {
+
+/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined (__stub_sin) || defined (__stub___sin)
+choke me
+#else
+sin();
+#endif
+
+; return 0; }
+configure:4176: checking for main in -lieee
+configure:4191: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c -lieee   1>&5
+configure:4272: checking stdlib.h
+configure:4335: checking fd_set and sys/select
+configure:4344: gcc -pipe -c   conftest.c 1>&5
+configure:4388: checking for ANSI C header files
+configure:4401: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:4468: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure: In function 'main':
+configure:4463: warning: incompatible implicit declaration of built-in function 'exit'
+configure:4492: checking for mode_t
+configure:4525: checking for pid_t
+configure:4558: checking for size_t
+configure:4591: checking for uid_t in sys/types.h
+configure:4633: checking for sys/time.h
+configure:4643: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:4670: checking whether time.h and sys/time.h may both be included
+configure:4684: gcc -pipe -c   conftest.c 1>&5
+configure:4710: checking pw_gecos in struct pwd
+configure:4719: gcc -pipe -c   conftest.c 1>&5
+configure:4787: checking for X
+configure:4854: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:4930: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c -lXt  1>&5
+configure:5025: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:5021:28: error: X11/XIntrinsic.h: No such file or directory
+configure: failed program was:
+#line 5020 "configure"
+#include "confdefs.h"
+#include <X11/XIntrinsic.h>
+configure:5045: checking for X11 header files
+configure:5053: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:5205: checking for main in -lXbsd
+configure:5220: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c -lXbsd   1>&5
+/usr/bin/ld: cannot find -lXbsd
+collect2: ld returned 1 exit status
+configure: failed program was:
+#line 5213 "configure"
+#include "confdefs.h"
+
+int main() {
+main()
+; return 0; }
+configure:5244: checking for connect
+configure:5272: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure:5385: checking for gethostbyname
+configure:5413: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure:5523: checking whether char is unsigned
+configure:5595: checking for strtod
+configure:5623: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure:5645: checking for Solaris2.4/Tru64 strtod bugs
+configure:5677: gcc -pipe -o conftest    -Wl,--export-dynamic conftest.c  1>&5
+configure: In function 'main':
+configure:5663: warning: incompatible implicit declaration of built-in function 'exit'
+configure:5667: warning: incompatible implicit declaration of built-in function 'exit'
+configure:5671: warning: incompatible implicit declaration of built-in function 'exit'
+configure:5673: warning: incompatible implicit declaration of built-in function 'exit'

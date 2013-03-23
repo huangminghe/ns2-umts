@@ -1,0 +1,152 @@
+In file included from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/object.h:40,
+                 from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/connector.h:40,
+                 from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:40,
+                 from realtime-trace.h:7,
+                 from testRealtime.cc:1:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/scheduler.h:40:20: error: config.h: No such file or directory
+In file included from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:41,
+                 from realtime-trace.h:7,
+                 from testRealtime.cc:1:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:46:26: error: lib/bsd-list.h: No such file or directory
+In file included from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:47,
+                 from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:41,
+                 from realtime-trace.h:7,
+                 from testRealtime.cc:1:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:20:21: error: antenna.h: No such file or directory
+In file included from realtime-trace.h:7,
+                 from testRealtime.cc:1:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:44:17: error: app.h: No such file or directory
+In file included from /usr/local/gcc-4.1.2/bin/../lib/gcc/i686-pc-linux-gnu/4.1.2/../../../../include/c++/4.1.2/backward/map.h:59,
+                 from trace.h:43,
+                 from realtime-trace.h:8,
+                 from testRealtime.cc:1:
+/usr/local/gcc-4.1.2/bin/../lib/gcc/i686-pc-linux-gnu/4.1.2/../../../../include/c++/4.1.2/backward/backward_warning.h:32:2: warning: #warning This file includes at least one deprecated or antiquated header. Please consider using one of the 32 headers found in section 17.4.1.2 of the C++ standard. Examples include substituting the <X> header for the <X.h> header for C++ includes, or <iostream> instead of the deprecated header <iostream.h>. To disable this warning use -Wno-deprecated.
+In file included from realtime-trace.h:8,
+                 from testRealtime.cc:1:
+trace.h:44:20: error: packet.h: No such file or directory
+In file included from trace.h:45,
+                 from realtime-trace.h:8,
+                 from testRealtime.cc:1:
+basetrace.h:41:17: error: tcp.h: No such file or directory
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/scheduler.h:79: error: expected class-name before ‘{’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/object.h:46: error: expected class-name before ‘,’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/object.h:60: error: ‘TclObject’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:55: error: ‘Antenna’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:65: error: ISO C++ forbids declaration of ‘Antenna’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:65: error: ‘Antenna’ declared as an ‘inline’ field
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:65: error: expected ‘;’ before ‘*’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:66: error: expected `;' before ‘inline’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:82: error: ISO C++ forbids declaration of ‘Antenna’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:82: error: expected ‘;’ before ‘*’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h: In constructor ‘PacketStamp::PacketStamp()’:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:39: error: class ‘PacketStamp’ does not have any field named ‘ant’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h: In member function ‘void PacketStamp::init(const PacketStamp*)’:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:42: error: ‘Antenna’ was not declared in this scope
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:42: error: ‘ant’ was not declared in this scope
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:43: error: ‘const class PacketStamp’ has no member named ‘ant’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:44: error: ‘const class PacketStamp’ has no member named ‘ant’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h: In member function ‘void PacketStamp::stamp(MobileNode*, int*, double, double, pkt_Type)’:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:56: error: ‘ant’ was not declared in this scope
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/ns-process.h: At global scope:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/ns-process.h:115: error: expected class-name before ‘{’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:532: error: ‘nsaddr_t’ does not name a type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:533: error: ‘nsaddr_t’ does not name a type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:535: error: ‘nsaddr_t’ does not name a type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:577: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:577: error: ‘nsaddr_t’ declared as an ‘inline’ field
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:577: error: expected ‘;’ before ‘&’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:578: error: expected `;' before ‘inline’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:589: error: expected class-name before ‘{’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:601: error: ISO C++ forbids declaration of ‘TclObject’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:601: error: expected ‘;’ before ‘*’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h: In static member function ‘static Packet* Packet::alloc()’:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:614: error: ‘FALSE’ was not declared in this scope
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:626: error: ‘struct hdr_cmn’ has no member named ‘next_hop_’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:627: error: ‘struct hdr_cmn’ has no member named ‘last_hop_’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:628: error: ‘TRUE’ was not declared in this scope
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h: In static member function ‘static void Packet::free(Packet*)’:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:676: error: ‘FALSE’ was not declared in this scope
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h: At global scope:
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:65: error: ISO C++ forbids declaration of ‘TracedVar’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:65: error: expected ‘;’ before ‘*’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:86: error: ‘nsaddr_t’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:88: error: ‘ns_addr_t’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:88: error: ‘virtual void Agent::sendto(int, AppData*, const char*, int)’ cannot be overloaded
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:86: error: with ‘virtual void Agent::sendto(int, AppData*, const char*, int)’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:92: error: ‘nsaddr_t’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:93: error: ‘ns_addr_t’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:93: error: ‘virtual void Agent::sendto(int, const char*, int)’ cannot be overloaded
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:92: error: with ‘virtual void Agent::sendto(int, const char*, int)’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:94: error: ‘nsaddr_t’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:99: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:99: error: ‘nsaddr_t’ declared as an ‘inline’ field
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:99: error: expected ‘;’ before ‘&’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: expected `;' before ‘inline’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: ‘nsaddr_t’ declared as an ‘inline’ field
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: expected ‘;’ before ‘&’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: expected `;' before ‘inline’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: ‘nsaddr_t’ declared as an ‘inline’ field
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: expected ‘;’ before ‘&’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: expected `;' before ‘inline’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: ‘nsaddr_t’ declared as an ‘inline’ field
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: expected ‘;’ before ‘&’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:103: error: expected `;' before ‘void’
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:113: error: ‘TclObject’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:121: error: ‘ns_addr_t’ does not name a type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:122: error: ‘ns_addr_t’ does not name a type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:142: error: ‘Tcl_Channel’ does not name a type
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:148: error: ‘TracedVar’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:152: error: expected ‘;’ before ‘(’ token
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:153: error: ‘TracedVar’ has not been declared
+/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:161: error: ‘TracedVar’ has not been declared
+basetrace.h:43: error: expected class-name before ‘{’ token
+basetrace.h:53: error: ‘Tcl_Channel’ does not name a type
+basetrace.h:54: error: ‘Tcl_Channel’ has not been declared
+basetrace.h:56: error: ‘Tcl_Channel’ does not name a type
+basetrace.h:57: error: ‘Tcl_Channel’ has not been declared
+basetrace.h:59: error: ‘Tcl_Channel’ has not been declared
+basetrace.h:80: error: ‘Tcl_Channel’ does not name a type
+basetrace.h:81: error: ‘Tcl_Channel’ does not name a type
+basetrace.h: In member function ‘void BaseTrace::channel(int)’:
+basetrace.h:54: error: ‘channel_’ was not declared in this scope
+basetrace.h: In member function ‘void BaseTrace::namchannel(int)’:
+basetrace.h:57: error: ‘namChan_’ was not declared in this scope
+basetrace.h: In member function ‘void BaseTrace::flush(int)’:
+basetrace.h:59: error: ‘Tcl_Flush’ was not declared in this scope
+trace.h: At global scope:
+trace.h:62: error: ‘nsaddr_t’ does not name a type
+trace.h:63: error: ‘nsaddr_t’ does not name a type
+trace.h:74: error: ‘RealtimeTrace’ does not name a type
+trace.h:104: error: ‘TracedVar’ has not been declared
+realtime-trace.cc:6: error: expected class-name before ‘{’ token
+realtime-trace.cc:9: error: ISO C++ forbids declaration of ‘TclObject’ with no type
+realtime-trace.cc:9: error: expected ‘;’ before ‘*’ token
+realtime-trace.cc:13: error: expected `;' before ‘}’ token
+realtime-trace.cc: In constructor ‘RealtimeTraceClass::RealtimeTraceClass()’:
+realtime-trace.cc:8: error: class ‘RealtimeTraceClass’ does not have any field named ‘TclClass’
+realtime-trace.cc: In member function ‘virtual int RealtimeTrace::command(int, const char* const*)’:
+realtime-trace.cc:31: error: ‘TCL_OK’ was not declared in this scope
+realtime-trace.cc:37: error: ‘Tcl’ was not declared in this scope
+realtime-trace.cc:37: error: ‘tcl’ was not declared in this scope
+realtime-trace.cc:37: error: ‘Tcl’ is not a class or namespace
+realtime-trace.cc:39: error: ‘TCL_OK’ was not declared in this scope
+realtime-trace.cc: In member function ‘void RealtimeTrace::Test()’:
+realtime-trace.cc:53: error: ‘Tcl’ was not declared in this scope
+realtime-trace.cc:53: error: ‘tcl’ was not declared in this scope
+realtime-trace.cc:53: error: ‘Tcl’ is not a class or namespace
+realtime-trace.cc: In member function ‘double RealtimeTrace::SetValueTest(double)’:
+realtime-trace.cc:59: error: ‘Tcl’ was not declared in this scope
+realtime-trace.cc:59: error: ‘tcl’ was not declared in this scope
+realtime-trace.cc:59: error: ‘Tcl’ is not a class or namespace
+testRealtime.cc: In function ‘int main()’:
+testRealtime.cc:17: error: no matching function for call to ‘RealtimeTrace::TraceType(char*&, char*&, char&, int, double&, double&, int&)’
+realtime-trace.cc:150: note: candidates are: void RealtimeTrace::TraceType(const char*, const char*, char, int, double, double, const char*, int)
+testRealtime.cc:18: error: no matching function for call to ‘RealtimeTrace::TraceType(char*&, char*&, char&, int, double&, double&, int&)’
+realtime-trace.cc:150: note: candidates are: void RealtimeTrace::TraceType(const char*, const char*, char, int, double, double, const char*, int)
+testRealtime.cc:23: error: ‘struct iterm’ has no member named ‘send_time’
+testRealtime.cc:23: error: ‘struct iterm’ has no member named ‘recv_time’
+testRealtime.cc:26: error: ‘class RealtimeTrace’ has no member named ‘CalculateMeanDelay’
+testRealtime.cc:26: error: ‘fromDelay’ was not declared in this scope
