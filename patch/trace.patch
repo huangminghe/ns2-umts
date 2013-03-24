@@ -1,0 +1,1595 @@
+diff -uNr trace2/1 trace/1
+--- trace2/1	2013-03-22 21:59:00.000000000 +0800
++++ trace/1	1970-01-01 08:30:00.000000000 +0830
+@@ -1,152 +0,0 @@
+-In file included from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/object.h:40,
+-                 from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/connector.h:40,
+-                 from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:40,
+-                 from realtime-trace.h:7,
+-                 from testRealtime.cc:1:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/scheduler.h:40:20: error: config.h: No such file or directory
+-In file included from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:41,
+-                 from realtime-trace.h:7,
+-                 from testRealtime.cc:1:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:46:26: error: lib/bsd-list.h: No such file or directory
+-In file included from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:47,
+-                 from /home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:41,
+-                 from realtime-trace.h:7,
+-                 from testRealtime.cc:1:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:20:21: error: antenna.h: No such file or directory
+-In file included from realtime-trace.h:7,
+-                 from testRealtime.cc:1:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:44:17: error: app.h: No such file or directory
+-In file included from /usr/local/gcc-4.1.2/bin/../lib/gcc/i686-pc-linux-gnu/4.1.2/../../../../include/c++/4.1.2/backward/map.h:59,
+-                 from trace.h:43,
+-                 from realtime-trace.h:8,
+-                 from testRealtime.cc:1:
+-/usr/local/gcc-4.1.2/bin/../lib/gcc/i686-pc-linux-gnu/4.1.2/../../../../include/c++/4.1.2/backward/backward_warning.h:32:2: warning: #warning This file includes at least one deprecated or antiquated header. Please consider using one of the 32 headers found in section 17.4.1.2 of the C++ standard. Examples include substituting the <X> header for the <X.h> header for C++ includes, or <iostream> instead of the deprecated header <iostream.h>. To disable this warning use -Wno-deprecated.
+-In file included from realtime-trace.h:8,
+-                 from testRealtime.cc:1:
+-trace.h:44:20: error: packet.h: No such file or directory
+-In file included from trace.h:45,
+-                 from realtime-trace.h:8,
+-                 from testRealtime.cc:1:
+-basetrace.h:41:17: error: tcp.h: No such file or directory
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/scheduler.h:79: error: expected class-name before ‘{’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/object.h:46: error: expected class-name before ‘,’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/object.h:60: error: ‘TclObject’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:55: error: ‘Antenna’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:65: error: ISO C++ forbids declaration of ‘Antenna’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:65: error: ‘Antenna’ declared as an ‘inline’ field
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:65: error: expected ‘;’ before ‘*’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:66: error: expected `;' before ‘inline’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:82: error: ISO C++ forbids declaration of ‘Antenna’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:82: error: expected ‘;’ before ‘*’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h: In constructor ‘PacketStamp::PacketStamp()’:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:39: error: class ‘PacketStamp’ does not have any field named ‘ant’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h: In member function ‘void PacketStamp::init(const PacketStamp*)’:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:42: error: ‘Antenna’ was not declared in this scope
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:42: error: ‘ant’ was not declared in this scope
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:43: error: ‘const class PacketStamp’ has no member named ‘ant’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:44: error: ‘const class PacketStamp’ has no member named ‘ant’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h: In member function ‘void PacketStamp::stamp(MobileNode*, int*, double, double, pkt_Type)’:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet-stamp.h:56: error: ‘ant’ was not declared in this scope
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/ns-process.h: At global scope:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/ns-process.h:115: error: expected class-name before ‘{’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:532: error: ‘nsaddr_t’ does not name a type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:533: error: ‘nsaddr_t’ does not name a type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:535: error: ‘nsaddr_t’ does not name a type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:577: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:577: error: ‘nsaddr_t’ declared as an ‘inline’ field
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:577: error: expected ‘;’ before ‘&’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:578: error: expected `;' before ‘inline’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:589: error: expected class-name before ‘{’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:601: error: ISO C++ forbids declaration of ‘TclObject’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:601: error: expected ‘;’ before ‘*’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h: In static member function ‘static Packet* Packet::alloc()’:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:614: error: ‘FALSE’ was not declared in this scope
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:626: error: ‘struct hdr_cmn’ has no member named ‘next_hop_’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:627: error: ‘struct hdr_cmn’ has no member named ‘last_hop_’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:628: error: ‘TRUE’ was not declared in this scope
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h: In static member function ‘static void Packet::free(Packet*)’:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/packet.h:676: error: ‘FALSE’ was not declared in this scope
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h: At global scope:
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:65: error: ISO C++ forbids declaration of ‘TracedVar’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:65: error: expected ‘;’ before ‘*’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:86: error: ‘nsaddr_t’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:88: error: ‘ns_addr_t’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:88: error: ‘virtual void Agent::sendto(int, AppData*, const char*, int)’ cannot be overloaded
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:86: error: with ‘virtual void Agent::sendto(int, AppData*, const char*, int)’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:92: error: ‘nsaddr_t’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:93: error: ‘ns_addr_t’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:93: error: ‘virtual void Agent::sendto(int, const char*, int)’ cannot be overloaded
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:92: error: with ‘virtual void Agent::sendto(int, const char*, int)’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:94: error: ‘nsaddr_t’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:99: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:99: error: ‘nsaddr_t’ declared as an ‘inline’ field
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:99: error: expected ‘;’ before ‘&’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: expected `;' before ‘inline’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: ‘nsaddr_t’ declared as an ‘inline’ field
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:100: error: expected ‘;’ before ‘&’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: expected `;' before ‘inline’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: ‘nsaddr_t’ declared as an ‘inline’ field
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:101: error: expected ‘;’ before ‘&’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: expected `;' before ‘inline’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: ISO C++ forbids declaration of ‘nsaddr_t’ with no type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: ‘nsaddr_t’ declared as an ‘inline’ field
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:102: error: expected ‘;’ before ‘&’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:103: error: expected `;' before ‘void’
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:113: error: ‘TclObject’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:121: error: ‘ns_addr_t’ does not name a type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:122: error: ‘ns_addr_t’ does not name a type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:142: error: ‘Tcl_Channel’ does not name a type
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:148: error: ‘TracedVar’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:152: error: expected ‘;’ before ‘(’ token
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:153: error: ‘TracedVar’ has not been declared
+-/home/eric/ns/ns-allinone-2.29/ns-2.29/common/agent.h:161: error: ‘TracedVar’ has not been declared
+-basetrace.h:43: error: expected class-name before ‘{’ token
+-basetrace.h:53: error: ‘Tcl_Channel’ does not name a type
+-basetrace.h:54: error: ‘Tcl_Channel’ has not been declared
+-basetrace.h:56: error: ‘Tcl_Channel’ does not name a type
+-basetrace.h:57: error: ‘Tcl_Channel’ has not been declared
+-basetrace.h:59: error: ‘Tcl_Channel’ has not been declared
+-basetrace.h:80: error: ‘Tcl_Channel’ does not name a type
+-basetrace.h:81: error: ‘Tcl_Channel’ does not name a type
+-basetrace.h: In member function ‘void BaseTrace::channel(int)’:
+-basetrace.h:54: error: ‘channel_’ was not declared in this scope
+-basetrace.h: In member function ‘void BaseTrace::namchannel(int)’:
+-basetrace.h:57: error: ‘namChan_’ was not declared in this scope
+-basetrace.h: In member function ‘void BaseTrace::flush(int)’:
+-basetrace.h:59: error: ‘Tcl_Flush’ was not declared in this scope
+-trace.h: At global scope:
+-trace.h:62: error: ‘nsaddr_t’ does not name a type
+-trace.h:63: error: ‘nsaddr_t’ does not name a type
+-trace.h:74: error: ‘RealtimeTrace’ does not name a type
+-trace.h:104: error: ‘TracedVar’ has not been declared
+-realtime-trace.cc:6: error: expected class-name before ‘{’ token
+-realtime-trace.cc:9: error: ISO C++ forbids declaration of ‘TclObject’ with no type
+-realtime-trace.cc:9: error: expected ‘;’ before ‘*’ token
+-realtime-trace.cc:13: error: expected `;' before ‘}’ token
+-realtime-trace.cc: In constructor ‘RealtimeTraceClass::RealtimeTraceClass()’:
+-realtime-trace.cc:8: error: class ‘RealtimeTraceClass’ does not have any field named ‘TclClass’
+-realtime-trace.cc: In member function ‘virtual int RealtimeTrace::command(int, const char* const*)’:
+-realtime-trace.cc:31: error: ‘TCL_OK’ was not declared in this scope
+-realtime-trace.cc:37: error: ‘Tcl’ was not declared in this scope
+-realtime-trace.cc:37: error: ‘tcl’ was not declared in this scope
+-realtime-trace.cc:37: error: ‘Tcl’ is not a class or namespace
+-realtime-trace.cc:39: error: ‘TCL_OK’ was not declared in this scope
+-realtime-trace.cc: In member function ‘void RealtimeTrace::Test()’:
+-realtime-trace.cc:53: error: ‘Tcl’ was not declared in this scope
+-realtime-trace.cc:53: error: ‘tcl’ was not declared in this scope
+-realtime-trace.cc:53: error: ‘Tcl’ is not a class or namespace
+-realtime-trace.cc: In member function ‘double RealtimeTrace::SetValueTest(double)’:
+-realtime-trace.cc:59: error: ‘Tcl’ was not declared in this scope
+-realtime-trace.cc:59: error: ‘tcl’ was not declared in this scope
+-realtime-trace.cc:59: error: ‘Tcl’ is not a class or namespace
+-testRealtime.cc: In function ‘int main()’:
+-testRealtime.cc:17: error: no matching function for call to ‘RealtimeTrace::TraceType(char*&, char*&, char&, int, double&, double&, int&)’
+-realtime-trace.cc:150: note: candidates are: void RealtimeTrace::TraceType(const char*, const char*, char, int, double, double, const char*, int)
+-testRealtime.cc:18: error: no matching function for call to ‘RealtimeTrace::TraceType(char*&, char*&, char&, int, double&, double&, int&)’
+-realtime-trace.cc:150: note: candidates are: void RealtimeTrace::TraceType(const char*, const char*, char, int, double, double, const char*, int)
+-testRealtime.cc:23: error: ‘struct iterm’ has no member named ‘send_time’
+-testRealtime.cc:23: error: ‘struct iterm’ has no member named ‘recv_time’
+-testRealtime.cc:26: error: ‘class RealtimeTrace’ has no member named ‘CalculateMeanDelay’
+-testRealtime.cc:26: error: ‘fromDelay’ was not declared in this scope
+Binary files trace2/a.out and trace/a.out differ
+diff -uNr trace2/PacketRecord.h trace/PacketRecord.h
+--- trace2/PacketRecord.h	2013-03-12 11:13:42.000000000 +0800
++++ trace/PacketRecord.h	1970-01-01 08:30:00.000000000 +0830
+@@ -1,129 +0,0 @@
+-#ifndef PACKETRECORD_H
+-#define PACKETRECORD_H
+-
+-#include <iostream>
+-
+-struct PacketRecord {
+-private:
+-	char *src_nodeaddr;
+-	char *dst_nodeaddr;
+-	char action;
+-	int uid;	
+-public:
+-	PacketRecord() {
+-		src_nodeaddr = new char;
+-		*src_nodeaddr = '\0';
+-		dst_nodeaddr = new char;
+-		*dst_nodeaddr = '\0';
+-		action = '\0';
+-		uid = 0;
+-	}
+-
+-	PacketRecord(const PacketRecord& key) {
+-		int fromLen = strlen(key.src_nodeaddr)+1;
+-		src_nodeaddr = new char[fromLen];
+-		strcpy(src_nodeaddr, key.src_nodeaddr);
+-
+-		int toLen = strlen(key.dst_nodeaddr)+1;
+-		dst_nodeaddr = new char[toLen];
+-		strcpy(dst_nodeaddr, key.dst_nodeaddr);
+-
+-		action = key.action;
+-		uid = key.uid; 
+-	}
+-
+-	~PacketRecord(){
+-		delete src_nodeaddr;
+-		delete dst_nodeaddr;
+-	}
+-
+-	PacketRecord& operator=(const PacketRecord& key) {
+-		if (*this == key)
+-		{
+-			return *this;
+-		}
+-
+-		delete src_nodeaddr;
+-		delete dst_nodeaddr;
+-
+-		int fromLen = strlen(key.src_nodeaddr)+1;
+-		src_nodeaddr = new char[fromLen];
+-		strcpy(src_nodeaddr, key.src_nodeaddr);
+-
+-		int toLen = strlen(key.dst_nodeaddr)+1;
+-		dst_nodeaddr = new char[toLen];
+-		strcpy(dst_nodeaddr, key.dst_nodeaddr);
+-
+-		action = key.action;
+-		uid = key.uid;
+-
+-		return *this;
+-	}
+-
+-	friend bool operator==(const PacketRecord& a, const PacketRecord& b) {
+-		if( a.uid == b.uid 
+-			&& a.action == b.action 
+-			&& strcmp(a.src_nodeaddr, b.dst_nodeaddr) == 0 
+-			&& strcmp(a.dst_nodeaddr, b.dst_nodeaddr) == 0)
+-			return true;
+-		return false;
+-	}
+-	
+-	friend bool operator<(const PacketRecord& a, const PacketRecord& b) {
+-		int fromCmp = strcmp(a.src_nodeaddr, b.src_nodeaddr);
+-		int toCmp = strcmp(a.dst_nodeaddr, b.dst_nodeaddr);
+-
+-		if (a.uid != b.uid) {
+-			return a.uid < b.uid ? true:false;
+-		}
+-		else if (a.action != b.action) {
+-			return a.action < b.action ? true:false;
+-		}
+-		else if (fromCmp != 0) {
+-			return fromCmp < 0 ? true:false;
+-		}
+-		else {
+-			return toCmp < 0 ? true:false;
+-		}
+-	}
+-	
+-	friend bool operator>(const PacketRecord& a, const PacketRecord& b) {
+-		int fromCmp = strcmp(a.src_nodeaddr, b.src_nodeaddr);
+-		int toCmp = strcmp(a.dst_nodeaddr, b.dst_nodeaddr);
+-
+-		if (a.uid != b.uid) {
+-			return a.uid > b.uid ? true:false;
+-		}
+-		else if (a.action != b.action) {
+-			return a.action > b.action ? true:false;
+-		}
+-		else if (fromCmp != 0) {
+-			return fromCmp > 0 ? true:false;
+-		}
+-		else  {
+-			return toCmp > 0 ? true:false;
+-		}
+-	}
+-
+-	void src_nodeaddrSet(const char* str) {
+-		int	srcLen = strlen(str) + 1;
+-		src_nodeaddr = new char[srcLen];
+-		strncpy(src_nodeaddr, str, srcLen);
+-	}
+-
+-	void dst_nodeaddrSet(const char* str) {
+-		int dstLen = strlen(str) + 1;
+-		dst_nodeaddr = new char[dstLen];
+-		strncpy(dst_nodeaddr, str, dstLen);
+-	}
+-
+-	void actionSet(const char flag) {
+-		action = flag;
+-	}
+-
+-	void uidSet(const int val) {
+-		uid = val;
+-	}
+-};
+-
+-#endif
+\ No newline at end of file
+Binary files trace2/test/a.out and trace/test/a.out differ
+diff -uNr trace2/test/realtime-trace.cc trace/test/realtime-trace.cc
+--- trace2/test/realtime-trace.cc	2013-03-23 19:27:33.000000000 +0800
++++ trace/test/realtime-trace.cc	1970-01-01 08:30:00.000000000 +0830
+@@ -1,163 +0,0 @@
+-#include "realtime-trace.h"
+-
+-std::map<int, iterm> RealtimeTrace::traceMap;
+-
+-
+-RealtimeTrace::~RealtimeTrace()
+-{
+-//	WriteDelayOnFile("5.0.0", "3.0.2");
+-	//delete [] src_nodeaddr;
+-	//delete [] dst_nodeaddr;
+-}
+-
+-
+-void RealtimeTrace::TraceSendType(const char* fromNode,
+-                                  const char flag, 
+-						          const int packetUid, 
+-                                  const double sendTime, 
+-						          const char* packetType, 
+-                                  const int packetSize)
+-{
+-	if((flag == 's' || flag == '+') && 
+-        (strcmp(packetType, "cbr") == 0 
+-        || strcmp(packetType, "udp") == 0
+-        || strcmp(packetType, "tcp") == 0
+-        || strcmp(packetType, "ftp") == 0
+-        || strcmp(packetType, "telnet") == 0
+-        || strcmp(packetType, "audio") == 0
+-        || strcmp(packetType, "video") == 0
+-        || strcmp(packetType, "ack") == 0
+-        || strcmp(packetType, "sctp") == 0)) {
+-        //We just record the origin source node which send the packet
+-        //We do not trace the forward node
+-        std::map<int, iterm> :: iterator iter = traceMap.find(packetUid);
+-        //if not found, it means had not trace this packet sending
+-        if(iter == traceMap.end()) {
+-	    	traceMap[packetUid].send_time_ = sendTime;
+-		    //obviously, when packet just being sending, recv_time should had not been set;
+-		    traceMap[packetUid].recv_time_ = 0;
+-		    traceMap[packetUid].packet_size_ = packetSize;
+-
+-		    traceMap[packetUid].packet_type_ = new char[strlen(packetType)+1];
+-		    strncpy(traceMap[packetUid].packet_type_, packetType, strlen(packetType)+1);
+-
+-            traceMap[packetUid].send_node_ = new char[strlen(fromNode)+1];
+-            strncpy(traceMap[packetUid].send_node_, fromNode, strlen(fromNode)+1);
+-
+-            //initialize the recv_node_
+-            traceMap[packetUid].recv_node_ = new char[1];
+-            traceMap[packetUid].recv_node_[0] = '\0';
+-	    }
+-    }
+-}
+-
+-void RealtimeTrace::TraceRecvType(const char* toNode, 
+-                                  const char flag, 
+-			                      const int packetUid, 
+-                                  const double recvTime, 
+-			                      const char* packetType, 
+-                                  const int packetSize)
+-{
+-	if(flag == 'r') {
+-		//keep the send_time still, and set the recv_time
+-        traceMap[packetUid].recv_time_ = recvTime;
+-        traceMap[packetUid].packet_size_ = packetSize;
+-
+-        traceMap[packetUid].recv_node_ = new char[strlen(toNode)+1];
+-        strncpy(traceMap[packetUid].recv_node_, toNode, strlen(toNode)+1);
+-	}
+-}
+-
+-void RealtimeTrace::TraceType(const char* fromNode, 
+-                              const char* toNode,
+-						      const char flag, 
+-                              const int packetUid,
+-					 	      const double sendTime, 
+-                              const double recvTime,
+-					 	      const char* packetType, 
+-                              const int packetSize)
+-{
+-	if(flag == '+' || flag == 's') {
+-		RealtimeTrace::TraceSendType(fromNode, flag, packetUid, sendTime, packetType, packetSize);
+-	}
+-	if(flag == 'r') {
+-		RealtimeTrace::TraceRecvType(toNode, flag, packetUid, recvTime, packetType, packetSize);
+-	}
+-}
+-
+-
+-void  RealtimeTrace::WriteDelayOnFile(const char* src_nodeaddr, 
+-                                      const char* dst_nodeaddr)
+-{	
+-	std::ofstream in;
+-	in.open("/home/eric/delay.txt", std::ios::app);
+-		
+-	std::map<int, iterm>::iterator iter;
+-	for(iter = traceMap.begin(); iter != traceMap.end(); ++iter)
+-	{
+-        if(strcmp(iter->second.send_node_, src_nodeaddr) == 0 
+-           && strcmp(iter->second.recv_node_, dst_nodeaddr) == 0) {
+-		    in<<iter->first;
+-		    in<<" ";
+-		    in<<iter->second.packet_type_;
+-	    	in<<" ";
+-            in<<iter->second.send_node_;
+-            in<<" ";
+-            in<<iter->second.recv_node_;
+-            in<<" ";
+-		    in<<(iter->second.recv_time_ - iter->second.send_time_);
+-		    in<<"\n";
+-        }
+-	}
+-
+-	in.close();
+-}
+-
+-double RealtimeTrace::GetMeanDelay(const char* src_nodeaddr, 
+-                                   const char* dst_nodeaddr
+-                                   )
+-{
+-	std::ofstream in;
+-	in.open("/home/eric/mean_delay.txt", std::ios::app);
+-		
+-	std::map<int, iterm>::iterator iter;
+-	double mean_delay = 0.0;
+-    long sec_packet_num = 0;
+-
+-	for(iter = traceMap.begin(); iter != traceMap.end(); ++iter) {
+-        if(strncmp(iter->second.send_node_, src_nodeaddr, strlen(src_nodeaddr)) == 0 
+-                && strncmp(iter->second.recv_node_, dst_nodeaddr, strlen(dst_nodeaddr)) == 0) {
+-		    mean_delay += iter->second.recv_time_ - iter->second.send_time_;
+-            sec_packet_num++;
+-        }
+-	}
+-
+-	in<<mean_delay;
+-    in<<"\n";
+-    in.close();
+-
+-	return sec_packet_num ?  (mean_delay/sec_packet_num) : 0;
+-}
+-
+-double RealtimeTrace::GetCurrentDelay(const char* src_nodeaddr, 
+-                                      const char* dst_nodeaddr
+-                                      )
+-{
+-	std::ofstream in;
+-	in.open("/home/eric/current_delay.txt", std::ios::app);
+-		
+-	std::map<int, iterm>::iterator iter;
+-	double  current_delay = 0.0;
+-	for(iter = traceMap.end(), --iter; 
+-            (strncmp(iter->second.send_node_, src_nodeaddr,  strlen(src_nodeaddr)) != 0 
+-             || strncmp(iter->second.recv_node_, dst_nodeaddr, strlen(dst_nodeaddr)) != 0); 
+-            --iter) {
+-        ;
+-    }
+-    
+-	current_delay = iter->second.recv_time_ - iter->second.send_time_;
+-	in<<current_delay;
+-	in.close();
+-
+-	return current_delay;
+-}
+diff -uNr trace2/test/realtime-trace.h trace/test/realtime-trace.h
+--- trace2/test/realtime-trace.h	2013-03-23 19:29:16.000000000 +0800
++++ trace/test/realtime-trace.h	1970-01-01 08:30:00.000000000 +0830
+@@ -1,96 +0,0 @@
+-#ifndef REALTIME_TRACE_H
+-#define REALTIME_TRACE_H
+-#include <map>
+-#include <string.h>
+-#include <iostream>
+-#include <fstream>
+-
+-struct iterm {
+-    char* send_node_;
+-    char* recv_node_;
+-	double send_time_;
+-	double recv_time_;
+-	char* packet_type_;
+-	int packet_size_;
+-};
+-
+-class RealtimeTrace {
+-private:
+-	// the source node
+-	//char* src_nodeaddr;
+-	// the destination node
+-	//char* dst_nodeaddr;
+-
+-protected:
+-    int command(int argc, const char*const* argv);
+-  //  int pt_ ; //packet type want to trace, like "cbr" "ftp"
+-public:
+-	//map<uid, <send_time, recv_time, packet_size>> to store the trace data
+-	static std::map<int, iterm> traceMap;
+-    
+-    //static double current_delay_;
+-    //static double mean_delay_;
+-	
+-	//Here, we derivered from Agent(PT_UDP), when you simulate TCP, maybe
+-	// you need to change to Agent(PT_TCP)
+-	RealtimeTrace() {};
+-	~RealtimeTrace();
+-
+-	void TraceSend(const char* fromNode, 
+-				   const char flag, 
+-				   const int packedUid,
+-				   const double sendTime, 
+-				   const int packetSize);
+-
+-	void TraceRecv(const char* toNode, 
+-		           const char flag, 
+-		           const int packedUid, 
+-				   const double recvTime, 
+-				   const int packetSize);
+-
+-	void Trace(const char* fromNode, 
+-			   const char* toNode, 
+-               const char flag, 
+-               const int packedUid, 
+-               const double sendTime, 
+-			   const double recvTime, 
+-			   const int packetSize);
+-
+-	void TraceSendType(const char* fromNode,
+-					   const char flag, 
+-					   const int packedUid, 
+-					   const double sendTime,
+-					   const char* packetType, 
+-					   const int packetSize);
+-
+-	void TraceRecvType(const char* toNode, 
+-		               const char flag, 
+-		               const int packedUid, 
+-		               const double recvTime, 
+-					   const char* packetType, 
+-					   const int packetSize);
+-
+-	void TraceType(const char* fromNode, 
+-				   const char* toNode, 
+-                   const char flag, 
+-                   const int packedUid, 
+-				   const double sendTime, 	
+-				   const double recvTime,
+-				   const char* packetType, 
+-				   const int packetSize);
+-
+-	double GetMeanDelay(const char* src_nodeaddr, 
+-						const char* dst_nodeaddr
+-						);
+-
+-	double GetCurrentDelay(const char* src_nodeaddr, 
+-						   const char* dst_nodeaddr
+-						  );
+-
+-	void WriteDelayOnFile(const char* src_nodeaddr, 
+-						  const char* dst_nodeaddr);
+-
+-    double SetValue(double val);
+-
+-};
+-#endif
+Binary files trace2/test/realtime-trace.o and trace/test/realtime-trace.o differ
+Binary files trace2/test/test and trace/test/test differ
+diff -uNr trace2/test/testRealtime.cc trace/test/testRealtime.cc
+--- trace2/test/testRealtime.cc	2013-03-23 19:27:05.000000000 +0800
++++ trace/test/testRealtime.cc	1970-01-01 08:30:00.000000000 +0830
+@@ -1,39 +0,0 @@
+-#include "realtime-trace.h"
+-#include "realtime-trace.cc"
+-
+-int main()
+-{
+-	char* fromNode = "Me";
+-	char* toNode = "You";
+-	char flag1 = 's';
+-	char flag2 = 'r';
+-	char* packetType = "cbr";
+-	int packetSize = 123;
+-	double sTime = 0.22333;
+-	double rTime = 1.345667;
+-
+-	RealtimeTrace rt;
+-
+-	rt.TraceType(fromNode, toNode, flag1,1233, sTime, rTime, packetType, packetSize);
+-	rt.TraceType(fromNode, toNode, flag2,1233, sTime, rTime, packetType, packetSize);
+-	
+-
+-
+-	double mean_delay = rt.GetMeanDelay(fromNode, toNode);
+-	double current_delay = rt.GetCurrentDelay(fromNode, toNode);
+-	std::cout<< mean_delay <<std::endl;
+-	std::cout<< current_delay << std::endl;
+-
+-	rt.TraceType(fromNode, toNode, flag1,1234, sTime, rTime+9, packetType, packetSize);
+-	double mean_delay2 = rt.GetMeanDelay(fromNode, toNode);
+-	std::cout<< mean_delay2 <<std::endl;
+-
+-	rt.TraceType(fromNode, toNode, flag2,1234, sTime, rTime+11, packetType, packetSize);
+-
+-	double current_delay3 = rt.GetCurrentDelay(fromNode, toNode);
+-    std::cout<< current_delay3<<std::endl;
+-
+-	return 0;
+-
+-}
+-
+diff -uNr trace2/testRealtime.cc trace/testRealtime.cc
+--- trace2/testRealtime.cc	2013-03-22 22:01:43.000000000 +0800
++++ trace/testRealtime.cc	1970-01-01 08:30:00.000000000 +0830
+@@ -1,28 +0,0 @@
+-#include "realtime-trace.h"
+-#include "realtime-trace.cc"
+-
+-int main()
+-{
+-	char* fromNode = "Me";
+-	char* toNode = "You";
+-	char flag1 = 's';
+-	char flag2 = 'r';
+-	int packetSize = 123;
+-	double sTime = 0.22333;
+-	double rTime = 1.345667;
+-
+-	RealtimeTrace rt;
+-
+-
+-	rt.TraceType(fromNode, toNode, flag1,1233, sTime, rTime, packetSize);
+-	rt.TraceType(fromNode, toNode, flag2,1233, sTime, rTime, packetSize);
+-
+-	double mean_delay = rt.GetMeanDelay(fromDelay, toNode);
+-	double current_delay = rt.GetCurrentDelay(fromDelay, toNode);
+-	std::cout<<mean_delay;
+-	std::cout<<current_delay;
+-
+-	return 0;
+-
+-}
+-
+diff -uNr trace2/trace.ccbak trace/trace.ccbak
+--- trace2/trace.ccbak	2013-03-15 22:04:47.000000000 +0800
++++ trace/trace.ccbak	1970-01-01 08:30:00.000000000 +0830
+@@ -1,701 +0,0 @@
+-/* -*-	Mode:C++; c-basic-offset:8; tab-width:8 -*- */
+-/*
+- * Copyright (c) 1990-1997 Regents of the University of California.
+- * All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 3. All advertising materials mentioning features or use of this software
+- *    must display the following acknowledgement:
+- *	This product includes software developed by the Computer Systems
+- *	Engineering Group at Lawrence Berkeley Laboratory.
+- * 4. Neither the name of the University nor of the Laboratory may be used
+- *    to endorse or promote products derived from this software without
+- *    specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- *
+- * @(#) $Header: /var/lib/cvs/ns-2.29/trace/trace.cc,v 1.1.1.1 2006/03/08 13:52:49 rouil Exp $ (LBL)
+- */
+-
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include "packet.h"
+-#include "ip.h"
+-#include "tcp.h"
+-#include "sctp.h"
+-#include "rtp.h"
+-#include "srm.h"
+-#include "tfrc.h"
+-#include "flags.h"
+-#include "address.h"
+-#include "trace.h"
+-#include "rap/rap.h"
+-#include <fstream>
+-
+-/*
+- * author: Huang Minghe (h.minghe@gmail.com)
+- * We add a series of functions to record the packet sending and recieving here, because
+- * it is very important to get the real time performance of network for simulation.
+- */
+-
+-// For recording the data packet transmitting
+-static std::map<PacketRecord, double> PacketRecordMap;
+-
+-//const double Trace::PRECISION = 1.0e+6; 
+-
+-class TraceClass : public TclClass {
+-public:
+-	TraceClass() : TclClass("Trace") { }
+-	TclObject* create(int argc, const char*const* argv) {
+-		if (argc >= 5)
+-			return (new Trace(*argv[4]));
+-		return 0;
+-	}
+-} trace_class;
+-
+-void PacketRecordHandler(std::map<PacketRecord,double> &PacketRecordMap,
+-						char *src_nodeaddr, char *dst_nodeaddr, 
+-						char action, int uid, double time)
+-{
+-	PacketRecord tmp;
+-
+-	tmp.src_nodeaddrSet(src_nodeaddr);
+-	tmp.dst_nodeaddrSet(dst_nodeaddr);
+-	tmp.actionSet(action);
+-	tmp.uidSet(uid); 	
+-
+-	PacketRecordMap[tmp] = time;
+-
+-    // writing on a text file
+-  	ofstream recordFile("record.txt",ios::app);
+-    if(recordFile.is_open()) {
+-    	recordFile << src_nodeaddr;
+-    	recordFile << " ";
+-    	recordFile << dst_nodeaddr;
+-    	recordFile << " ";
+-    	recordFile << action;
+-    	recordFile << " ";
+-    	recordFile << uid;
+-    	recordFile << " ";
+-        recordFile << PacketRecordMap[tmp];
+-        recordFile << "\n";
+-        recordFile.close();
+-    }
+-  	else 
+-  		std::cout<<"cannot open record.txt";
+-}
+-
+-void GetDelay(std::map<PacketRecord,double>& PRMap, char *src_nodeaddr, char *dst_nodeaddr)
+-{
+-	std::map<int, double> SendTimeMap;
+-	std::map<int, double> RecvTimeMap;
+-
+-	std::vector<double> delayRecord;
+-	std::map<PacketRecord, double>::iterator iter;
+-
+-	// We count the delay 
+-	for(iter = PRMap.begin(); iter != PRMap.end(); ++iter) {
+-		if(strcmp(iter->first.src_nodeaddrGet(), src_nodeaddr) == 0 
+-			&& strcmp(iter->first.dst_nodeaddrGet(), dst_nodeaddr) == 0
+-			&& iter->first.actionGet() == 'r') {
+-			RecvTimeMap[iter->first.uidGet()] = iter->second;
+-		}
+-		if(strcmp(iter->first.src_nodeaddrGet(), src_nodeaddr) == 0 
+-			&& strcmp(iter->first.dst_nodeaddrGet(), dst_nodeaddr) == 0
+-			&& iter->first.actionGet() == 's') {
+-			SendTimeMap[iter->first.uidGet()] = iter->second;
+-		}
+-	}
+-
+-	ofstream delayFile ("delay.txt",ios::app);
+-	std::map<int, double>::iterator iterSendTime;
+-	std::map<int, double>::iterator iterRecvTime;
+-	
+-
+-	for(iterSendTime = SendTimeMap.begin(); iterSendTime != SendTimeMap.end(); ++iterSendTime) {
+-		for(iterRecvTime = RecvTimeMap.begin(); iterRecvTime != RecvTimeMap.end(); ++iterRecvTime) {
+-			if(iterRecvTime->first == iterSendTime->first) {
+-				delayRecord.push_back(iterRecvTime->second - iterSendTime->second);
+-			}   
+-		}
+-		if(delayFile.is_open()) {
+-			delayFile << iterRecvTime->second - iterSendTime->second;
+-			delayFile << "\n";
+-		}
+-	}
+-	delayFile.close();
+-}
+-
+-
+-Trace::Trace(int type)
+-	: Connector(), callback_(0), pt_(0), type_(type)
+-{
+-	bind("src_", (int*)&src_);
+-	bind("dst_", (int*)&dst_);
+-	bind("callback_", &callback_);
+-	bind("show_tcphdr_", &show_tcphdr_);
+-	bind("show_sctphdr_", &show_sctphdr_);
+-	pt_ = new BaseTrace;
+-}
+-
+-Trace::~Trace()
+-{
+-}
+-
+-/*
+- * $trace detach
+- * $trace flush
+- * $trace attach $fileID
+- */
+-int Trace::command(int argc, const char*const* argv)
+-{
+-	Tcl& tcl = Tcl::instance();
+-	if (argc == 2) {
+-		if (strcmp(argv[1], "detach") == 0) {
+-			pt_->channel(0) ;
+-			pt_->namchannel(0) ;
+-			return (TCL_OK);
+-		}
+-		if (strcmp(argv[1], "flush") == 0) {
+-			Tcl_Channel ch = pt_->channel();
+-			Tcl_Channel namch = pt_->namchannel();
+-			if (ch != 0) 
+-				pt_->flush(ch);
+-				//Tcl_Flush(pt_.channel());
+-			if (namch != 0)
+-				//Tcl_Flush(pt_->namchannel());
+-				pt_->flush(namch);
+-			return (TCL_OK);
+-		}
+-                if (strcmp(argv[1], "tagged") == 0) {
+-			tcl.resultf("%d", pt_->tagged());
+-                        return (TCL_OK);
+-                }
+-	} else if (argc == 3) {
+-		if (strcmp(argv[1], "annotate") == 0) {
+-			if (pt_->channel() != 0)
+-				annotate(argv[2]);
+-			return (TCL_OK);
+-		}
+-		if (strcmp(argv[1], "attach") == 0) {
+-			int mode;
+-			const char* id = argv[2];
+-			Tcl_Channel ch = Tcl_GetChannel(tcl.interp(), (char*)id,
+-						  &mode);
+-			pt_->channel(ch); 
+-			if (pt_->channel() == 0) {
+-				tcl.resultf("trace: can't attach %s for writing", id);
+-				return (TCL_ERROR);
+-			}
+-			return (TCL_OK);
+-		}
+-		if (strcmp(argv[1], "namattach") == 0) {
+-			int mode;
+-			const char* id = argv[2];
+-			Tcl_Channel namch = Tcl_GetChannel(tcl.interp(), 
+-							   (char*)id, &mode);
+-			pt_->namchannel(namch); 
+-			if (pt_->namchannel() == 0) {
+-				tcl.resultf("trace: can't attach %s for writing", id);
+-				return (TCL_ERROR);
+-			}
+-			return (TCL_OK);
+-		}
+-		if (strcmp(argv[1], "ntrace") == 0) {
+-			if (pt_->namchannel() != 0) 
+-				write_nam_trace(argv[2]);
+-			return (TCL_OK);
+-		}
+-		if (strcmp(argv[1], "tagged") == 0) {
+-                        int tag;
+-			if (Tcl_GetBoolean(tcl.interp(),
+-					   (char*)argv[2], &tag) == TCL_OK) {
+-				pt_->tagged(tag);
+-				return (TCL_OK);
+-			} else return (TCL_ERROR);
+-                }
+-	}
+-	return (Connector::command(argc, argv));
+-}
+-
+-void Trace::write_nam_trace(const char *s)
+-{
+-	sprintf(pt_->nbuffer(), "%s", s);
+-	pt_->namdump();
+-}
+-
+-void Trace::annotate(const char* s)
+-{
+-	if (pt_->tagged()) {
+-		sprintf(pt_->buffer(),
+-			"v "TIME_FORMAT" -e {sim_annotation %g %s}",
+-			Scheduler::instance().clock(), 
+-			Scheduler::instance().clock(), s);
+-	} else {
+-		sprintf(pt_->buffer(),
+-			"v "TIME_FORMAT" eval {set sim_annotation {%s}}", 
+-			pt_->round(Scheduler::instance().clock()), s);
+-	}
+-	pt_->dump();
+-	callback();
+-	sprintf(pt_->nbuffer(), "v -t "TIME_FORMAT" -e sim_annotation %g %s", 
+-		Scheduler::instance().clock(), 
+-		Scheduler::instance().clock(), s);
+-	pt_->namdump();
+-}
+-
+-
+-char* srm_names[] = {
+-        SRM_NAMES
+-};
+-
+-int
+-Trace::get_seqno(Packet* p)
+-{
+-	hdr_cmn *th = hdr_cmn::access(p);
+-	hdr_tcp *tcph = hdr_tcp::access(p);
+-	hdr_rtp *rh = hdr_rtp::access(p);
+-        hdr_rap *raph = hdr_rap::access(p);
+-	hdr_tfrc *tfrch = hdr_tfrc::access(p);
+-	hdr_tfrc_ack *tfrch_ack = hdr_tfrc_ack::access(p);
+-	packet_t t = th->ptype();
+-	int seqno;
+-
+-	/* UDP's now have seqno's too */
+-	if (t == PT_RTP || t == PT_CBR || t == PT_UDP || t == PT_EXP ||
+-	    t == PT_PARETO || t == PT_COOT)
+-		seqno = rh->seqno();
+-        else if (t == PT_RAP_DATA || t == PT_RAP_ACK)
+-                seqno = raph->seqno();
+-	else if (t == PT_TCP || t == PT_ACK || t == PT_HTTP || t == PT_FTP ||
+-	    t == PT_TELNET || t == PT_XCP)
+-		seqno = tcph->seqno();
+-	else if (t == PT_TFRC)
+-		seqno = tfrch->seqno;
+-	else if (t == PT_TFRC_ACK)
+-                seqno = tfrch_ack->seqno;
+-	else
+-		seqno = -1;
+- 	return seqno;
+-}
+-
+-// this function should retain some backward-compatibility, so that
+-// scripts don't break.
+-void Trace::format(int tt, int s, int d, Packet* p)
+-{
+-	hdr_cmn *th = hdr_cmn::access(p);
+-	hdr_ip *iph = hdr_ip::access(p);
+-	hdr_tcp *tcph = hdr_tcp::access(p);
+-	hdr_sctp *sctph = hdr_sctp::access(p);
+-	hdr_srm *sh = hdr_srm::access(p); 
+-
+-	const char* sname = "null";
+-
+-	packet_t t = th->ptype();
+-	const char* name = packet_info.name(t);
+-
+-        /* SRM-specific */
+-	if (strcmp(name,"SRM") == 0 || strcmp(name,"cbr") == 0 || strcmp(name,"udp") == 0) {
+-            if ( sh->type() < 5 && sh->type() > 0 ) {
+-	        sname = srm_names[sh->type()];
+-	    }
+-	}
+-
+-	if (name == 0)
+-		abort();
+-
+-	int seqno = get_seqno(p);
+-        /* 
+-         * When new flags are added, make sure to change NUMFLAGS
+-         * in trace.h
+-         */
+-        char flags[NUMFLAGS+1];
+-        for (int i = 0; i < NUMFLAGS; i++)
+-		flags[i] = '-';
+-        flags[NUMFLAGS] = 0;
+-
+-	hdr_flags* hf = hdr_flags::access(p);
+-	flags[0] = hf->ecn_ ? 'C' : '-';          // Ecn Echo
+-	flags[1] = hf->pri_ ? 'P' : '-'; 
+-	flags[2] = '-';
+-	flags[3] = hf->cong_action_ ? 'A' : '-';   // Congestion Action
+-	flags[4] = hf->ecn_to_echo_ ? 'E' : '-';   // Congestion Experienced
+-	flags[5] = hf->fs_ ? 'F' : '-';		   // Fast start: see tcp-fs and tcp-int
+-	flags[6] = hf->ecn_capable_ ? 'N' : '-';
+-	flags[7] = 0; // only for SCTP	
+-
+-#ifdef notdef
+-	flags[1] = (iph->flags() & PF_PRI) ? 'P' : '-';
+-	flags[2] = (iph->flags() & PF_USR1) ? '1' : '-';
+-	flags[3] = (iph->flags() & PF_USR2) ? '2' : '-';
+-	flags[5] = 0;
+-#endif
+-	char *src_nodeaddr = Address::instance().print_nodeaddr(iph->saddr());
+-	char *src_portaddr = Address::instance().print_portaddr(iph->sport());
+-	char *dst_nodeaddr = Address::instance().print_nodeaddr(iph->daddr());
+-	char *dst_portaddr = Address::instance().print_portaddr(iph->dport());
+-
+-	if (pt_->tagged()) {
+-		sprintf(pt_->buffer(), 
+-			"%c "TIME_FORMAT" -s %d -d %d -p %s -e %d -c %d -i %d -a %d -x {%s.%s %s.%s %d %s %s}",
+-			tt,
+-			Scheduler::instance().clock(),
+-			s,
+- 			d,
+-			name,
+-			th->size(),
+-			iph->flowid(),
+-			th->uid(),
+-			iph->flowid(),
+-			src_nodeaddr,
+-			src_portaddr,
+-			dst_nodeaddr,
+-			dst_portaddr,
+-			seqno,flags,sname);
+-			PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, tt, th->uid(),Scheduler::instance().clock());
+-			GetDelay(PacketRecordMap, "5.0.0", "3.0.2");	
+-	} else if (show_sctphdr_ && t == PT_SCTP) {
+-		double timestamp;
+-		timestamp = Scheduler::instance().clock();
+-		
+-		for(unsigned int i = 0; i < sctph->NumChunks(); i++) {
+-			switch(sctph->SctpTrace()[i].eType) {
+-			case SCTP_CHUNK_INIT:
+-			case SCTP_CHUNK_INIT_ACK:
+-			case SCTP_CHUNK_COOKIE_ECHO:
+-			case SCTP_CHUNK_COOKIE_ACK:
+-				flags[7] = 'I';     // connection initialization
+-				break;
+-				
+-			case SCTP_CHUNK_DATA:
+-				flags[7] = 'D';
+-				break;
+-
+-			case SCTP_CHUNK_SACK:
+-				flags[7] = 'S';
+-				break;
+-				
+-			case SCTP_CHUNK_FORWARD_TSN:
+-				flags[7] = 'R';
+-				break;
+-				
+-			case SCTP_CHUNK_HB:
+-				flags[7] = 'H';
+-				break;
+-
+-			case SCTP_CHUNK_HB_ACK:
+-				flags[7] = 'B';
+-				break;
+-			default:
+-				assert (false);
+-			}
+-			sprintf(pt_->buffer(),
+-				"%c "TIME_FORMAT" %d %d %s %d %s %d %s.%s %s.%s %d %d %d %d %d",
+-				tt,
+-				pt_->round(timestamp),
+-				s,
+-				d,
+-				name,
+-				th->size(),
+-				flags,
+-				iph->flowid(), /* was p->class_ */
+-				src_nodeaddr,
+-				src_portaddr,
+-				dst_nodeaddr,
+-				dst_portaddr,
+-				sctph->NumChunks(),
+-				sctph->SctpTrace()[i].uiTsn,
+-				th->uid(), /* was p->uid_ */
+-				sctph->SctpTrace()[i].usStreamId,
+-				sctph->SctpTrace()[i].usStreamSeqNum);	   
+-				PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, tt, th->uid(),Scheduler::instance().clock());
+-  				
+-  				// For testing using 3.0.0 and 5.0.0
+-  				GetDelay(PacketRecordMap, "5.0.0", "3.0.2");
+-
+-			/* The caller already calls pt_->dump() for us,
+-			 * but since SCTP needs to dump once per chunk, we
+-			 * call dump ourselves for all but the last chunk.
+-			 */
+-			assert (sctph->NumChunks() >= 1);
+-			if(i < sctph->NumChunks() - 1)
+-				pt_->dump();
+-		}
+-	} else if (!show_tcphdr_) {
+-		sprintf(pt_->buffer(), "%c "TIME_FORMAT" %d %d %s %d %s %d %s.%s %s.%s %d %d",
+-			tt,
+-			pt_->round(Scheduler::instance().clock()),
+-			s,
+-			d,
+-			name,
+-			th->size(),
+-			flags,
+-			iph->flowid() /* was p->class_ */,
+-			// iph->src() >> (Address::instance().NodeShift_[1]), 
+-                        // iph->src() & (Address::instance().PortMask_), 
+-                        // iph->dst() >> (Address::instance().NodeShift_[1]), 
+-                        // iph->dst() & (Address::instance().PortMask_),
+-			src_nodeaddr,
+-			src_portaddr,
+-			dst_nodeaddr,
+-			dst_portaddr,
+-			seqno,
+-			th->uid() /* was p->uid_ */);
+-			PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, tt, th->uid(),Scheduler::instance().clock());
+-			GetDelay(PacketRecordMap, "5.0.0", "3.0.2");
+-	} else {
+-		sprintf(pt_->buffer(), 
+-			"%c "TIME_FORMAT" %d %d %s %d %s %d %s.%s %s.%s %d %d %d 0x%x %d %d",
+-			tt,
+-			pt_->round(Scheduler::instance().clock()),
+-			s,
+-			d,
+-			name,
+-			th->size(),
+-			flags,
+-			iph->flowid(), /* was p->class_ */
+-		        // iph->src() >> (Address::instance().NodeShift_[1]), 
+-			// iph->src() & (Address::instance().PortMask_), 
+-  		        // iph->dst() >> (Address::instance().NodeShift_[1]), 
+-  		        // iph->dst() & (Address::instance().PortMask_),
+-			src_nodeaddr,
+-			src_portaddr,
+-			dst_nodeaddr,
+-			dst_portaddr,
+-			seqno,
+-			th->uid(), /* was p->uid_ */
+-			tcph->ackno(),
+-			tcph->flags(),
+-			tcph->hlen(),
+-			tcph->sa_length());
+-			PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, tt, th->uid(),Scheduler::instance().clock());
+-			GetDelay(PacketRecordMap, "5.0.0", "3.0.2");
+-	}
+-	if (pt_->namchannel() != 0)
+-		sprintf(pt_->nbuffer(), 
+-			"%c -t "TIME_FORMAT" -s %d -d %d -p %s -e %d -c %d -i %d -a %d -x {%s.%s %s.%s %d %s %s}",
+-			tt,
+-			Scheduler::instance().clock(),
+-			s,
+- 			d,
+-			name,
+-			th->size(),
+-			iph->flowid(),
+-			th->uid(),
+-			iph->flowid(),
+-			src_nodeaddr,
+-			src_portaddr,
+-			dst_nodeaddr,
+-			dst_portaddr,
+-			seqno,flags,sname);
+-	PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, tt, th->uid(),Scheduler::instance().clock());
+-	GetDelay(PacketRecordMap, "5.0.0", "3.0.2");
+-	delete [] src_nodeaddr;
+-  	delete [] src_portaddr;
+-  	delete [] dst_nodeaddr;
+-   	delete [] dst_portaddr;
+-}
+-
+-void Trace::recv(Packet* p, Handler* h)
+-{
+-	format(type_, src_, dst_, p);
+-	pt_->dump();
+-	callback();
+-	pt_->namdump();
+-	/* hack: if trace object not attached to anything free packet */
+-	if (target_ == 0)
+-		Packet::free(p);
+-	else
+-		send(p, h);
+-}
+-
+-void Trace::recvOnly(Packet *p)
+-{
+-	format(type_, src_, dst_, p);
+-	pt_->dump();
+-	callback();
+-	pt_->namdump();	
+-	target_->recvOnly(p);
+-}
+-
+-void Trace::trace(TracedVar* var)
+-{
+-	char tmp[256] = "";
+-	Scheduler& s = Scheduler::instance();
+-	if (&s == 0)
+-		return;
+-
+-	if (pt_->tagged()) {
+-		sprintf(pt_->buffer(), "%c "TIME_FORMAT" -a %s -n %s -v %s",
+-			type_,
+-			pt_->round(s.clock()),
+-			var->owner()->name(),
+-			var->name(),
+-			var->value(tmp, 256));
+-	} else {
+-		// format: use Mark's nam feature code without the '-' prefix
+-		sprintf(pt_->buffer(), "%c t"TIME_FORMAT" a%s n%s v%s",
+-			type_,
+-			pt_->round(s.clock()),
+-			var->owner()->name(),
+-			var->name(),
+-			var->value(tmp, 256));
+-	}
+-	pt_->dump();
+-	callback();
+-}
+-
+-void Trace::callback() 
+-{
+-	if (callback_) {
+-		Tcl& tcl = Tcl::instance();
+-		tcl.evalf("%s handle { %s }", name(), pt_->buffer());
+-	}
+-}
+-
+-//
+-// we need a DequeTraceClass here because a 'h' event need to go together
+-// with the '-' event. It's possible to use a postprocessing script, but 
+-// seems that's inconvient.
+-//
+-static class DequeTraceClass : public TclClass {
+-public:
+-	DequeTraceClass() : TclClass("Trace/Deque") { }
+-	TclObject* create(int args, const char*const* argv) {
+-		if (args >= 5)
+-			return (new DequeTrace(*argv[4]));
+-		return NULL;
+-	}
+-} dequetrace_class;
+-
+-
+-DequeTrace::~DequeTrace()
+-{
+-}
+-
+-void 
+-DequeTrace::recv(Packet* p, Handler* h)
+-{
+-	// write the '-' event first
+-	format(type_, src_, dst_, p);
+-	pt_->dump();
+-	callback();
+-	pt_->namdump();
+-
+-	if (pt_->namchannel() != 0 ||
+-	    (pt_->tagged() && pt_->channel() !=0)) {
+-		hdr_cmn *th = hdr_cmn::access(p);
+-		hdr_ip *iph = hdr_ip::access(p);
+-		hdr_srm *sh = hdr_srm::access(p);
+-		const char* sname = "null";   
+-
+-		packet_t t = th->ptype();
+-		const char* name = packet_info.name(t);
+-		
+-		if (strcmp(name,"SRM") == 0 || strcmp(name,"cbr") == 0 || strcmp(name,"udp") == 0) {
+-		    if ( sh->type() < 5 && sh->type() > 0  ) {
+-		        sname = srm_names[sh->type()];
+-		    }
+-		}   
+-
+-		char *src_nodeaddr = Address::instance().print_nodeaddr(iph->saddr());
+-		char *src_portaddr = Address::instance().print_portaddr(iph->sport());
+-		char *dst_nodeaddr = Address::instance().print_nodeaddr(iph->daddr());
+-		char *dst_portaddr = Address::instance().print_portaddr(iph->dport());
+-
+-		char flags[NUMFLAGS+1];
+-		for (int i = 0; i < NUMFLAGS; i++)
+-			flags[i] = '-';
+-		flags[NUMFLAGS] = 0;
+-
+-		hdr_flags* hf = hdr_flags::access(p);
+-		flags[0] = hf->ecn_ ? 'C' : '-';          // Ecn Echo
+-		flags[1] = hf->pri_ ? 'P' : '-'; 
+-		flags[2] = '-';
+-		flags[3] = hf->cong_action_ ? 'A' : '-';   // Congestion Action
+-		flags[4] = hf->ecn_to_echo_ ? 'E' : '-';   // Congestion Experienced
+-		flags[5] = hf->fs_ ? 'F' : '-';
+-		flags[6] = hf->ecn_capable_ ? 'N' : '-';
+-		flags[7] = 0; // only for SCTP
+-	
+-#ifdef notdef
+-		flags[1] = (iph->flags() & PF_PRI) ? 'P' : '-';
+-		flags[2] = (iph->flags() & PF_USR1) ? '1' : '-';
+-		flags[3] = (iph->flags() & PF_USR2) ? '2' : '-';
+-		flags[5] = 0;
+-#endif
+-		
+-		if (pt_->nbuffer() != 0) {
+-			sprintf(pt_->nbuffer(), 
+-				"%c -t "TIME_FORMAT" -s %d -d %d -p %s -e %d -c %d -i %d -a %d -x {%s.%s %s.%s %d %s %s}",
+-				'h',
+-				Scheduler::instance().clock(),
+-				src_,
+-  				dst_,
+-				name,
+-				th->size(),
+-				iph->flowid(),
+-				th->uid(),
+-				iph->flowid(),
+-				src_nodeaddr,
+-				src_portaddr,
+-				dst_nodeaddr,
+-				dst_portaddr,
+-				-1, flags, sname);
+-			pt_->namdump();
+-
+-			PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, 'h', th->uid(),Scheduler::instance().clock());
+-		GetDelay(PacketRecordMap, "5.0.0", "3.0.2");
+-		}
+-		if (pt_->tagged() && pt_->buffer() != 0) {
+-			sprintf(pt_->buffer(), 
+-				"%c "TIME_FORMAT" -s %d -d %d -p %s -e %d -c %d -i %d -a %d -x {%s.%s %s.%s %d %s %s}",
+-				'h',
+-				Scheduler::instance().clock(),
+-				src_,
+-	  			dst_,
+-				name,
+-				th->size(),
+-				iph->flowid(),
+-				th->uid(),
+-				iph->flowid(),
+-				src_nodeaddr,
+-				src_portaddr,
+-				dst_nodeaddr,
+-				dst_portaddr,
+-				-1, flags, sname);
+-			pt_->dump();
+-			PacketRecordHandler(PacketRecordMap, src_nodeaddr, dst_nodeaddr, 'h', th->uid(),Scheduler::instance().clock());
+-		GetDelay(PacketRecordMap, "5.0.0", "3.0.2");
+-		}
+-
+-		delete [] src_nodeaddr;
+-		delete [] src_portaddr;
+-		delete [] dst_nodeaddr;
+-		delete [] dst_portaddr;
+-	}
+-
+-	/* hack: if trace object not attached to anything free packet */
+-	if (target_ == 0)
+-		Packet::free(p);
+-	else
+-		send(p, h);
+-}
+-
+diff -uNr trace2/trace.hbak trace/trace.hbak
+--- trace2/trace.hbak	2013-03-15 22:04:54.000000000 +0800
++++ trace/trace.hbak	1970-01-01 08:30:00.000000000 +0830
+@@ -1,250 +0,0 @@
+-/* -*-	Mode:C++; c-basic-offset:8; tab-width:8 -*- */
+-/*
+- * Copyright (c) 1997 Regents of the University of California.
+- * All rights reserved.
+- * 
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 3. All advertising materials mentioning features or use of this software
+- *    must display the following acknowledgement:
+- * 	This product includes software developed by the MASH Research
+- * 	Group at the University of California Berkeley.
+- * 4. Neither the name of the University nor of the Research Group may be
+- *    used to endorse or promote products derived from this software without
+- *    specific prior written permission.
+- * 
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- *
+- * @(#) $Header: /var/lib/cvs/ns-2.29/trace/trace.h,v 1.1.1.1 2006/03/08 13:52:49 rouil Exp $
+- */
+-
+-#ifndef ns_trace_h
+-#define ns_trace_h
+-
+-#define NUMFLAGS 8
+-
+-#include <math.h> // floor
+-#include "packet.h"
+-#include "basetrace.h"
+-#include <map.h>
+-#include <vector.h>
+-#include <fstream>
+-
+-
+-/* Tracing has evolved into two types, packet tracing and event tracing.
+-Class Trace essentially supports packet tracing. 
+-However in addition to the basic tracing properties (that it derives from a BaseTrace class), pkt-tracing also requires to inherit some of the Connector class properties as well.
+-
+-Hence Trace should be renamed as ConnectorTrace in the future.
+-And it shall have a BaseTrace * variable, where BaseTrace class supporting pure tracing functionalities and should be the parent class for all subsequent trace-related classes.
+-*/
+-
+-
+-struct PacketRecord {
+-private:
+-	char *src_nodeaddr;
+-	char *dst_nodeaddr;
+-	char action;
+-	int uid;
+-public:
+-	PacketRecord() {
+-		src_nodeaddr = new char;
+-		*src_nodeaddr = '\0';
+-		dst_nodeaddr = new char;
+-		*dst_nodeaddr = '\0';
+-		action = '\0';
+-		uid = 0;
+-	}
+-
+-	PacketRecord(const PacketRecord& key) {
+-		int fromLen = strlen(key.src_nodeaddr)+1;
+-		src_nodeaddr = new char[fromLen];
+-		strncpy(src_nodeaddr, key.src_nodeaddr, fromLen);
+-
+-		int toLen = strlen(key.dst_nodeaddr)+1;
+-		dst_nodeaddr = new char[toLen];
+-		strncpy(dst_nodeaddr, key.dst_nodeaddr, toLen);
+-
+-		action = key.action;
+-		uid = key.uid; 
+-	}
+-
+-	~PacketRecord(){
+-		delete src_nodeaddr;
+-		delete dst_nodeaddr;
+-	}
+-
+-	PacketRecord& operator=(const PacketRecord& key) {
+-		if (*this == key)
+-		{
+-			return *this;
+-		}
+-
+-		delete src_nodeaddr;
+-		delete dst_nodeaddr;
+-
+-		int fromLen = strlen(key.src_nodeaddr)+1;
+-		src_nodeaddr = new char[fromLen];
+-		strncpy(src_nodeaddr, key.src_nodeaddr, fromLen);
+-
+-		int toLen = strlen(key.dst_nodeaddr)+1;
+-		dst_nodeaddr = new char[toLen];
+-		strncpy(dst_nodeaddr, key.dst_nodeaddr,toLen);
+-
+-		action = key.action;
+-		uid = key.uid;
+-
+-		return *this;
+-	}
+-
+-	friend bool operator==(const PacketRecord& a, const PacketRecord& b) {
+-		if( a.uid == b.uid 
+-			&& a.action == b.action 
+-			&& strcmp(a.src_nodeaddr, b.dst_nodeaddr) == 0 
+-			&& strcmp(a.dst_nodeaddr, b.dst_nodeaddr) == 0)
+-			return true;
+-		return false;
+-	}
+-	
+-	friend bool operator<(const PacketRecord& a, const PacketRecord& b) {
+-		int fromCmp = strcmp(a.src_nodeaddr, b.src_nodeaddr);
+-		int toCmp = strcmp(a.dst_nodeaddr, b.dst_nodeaddr);
+-
+-		if (a.uid != b.uid) {
+-			return a.uid < b.uid ? true:false;
+-		}
+-		else if (a.action != b.action) {
+-			return a.action < b.action ? true:false;
+-		}
+-		else if (fromCmp != 0) {
+-			return fromCmp < 0 ? true:false;
+-		}
+-		else {
+-			return toCmp < 0 ? true:false;
+-		}
+-	}
+-	
+-	friend bool operator>(const PacketRecord& a, const PacketRecord& b) {
+-		int fromCmp = strcmp(a.src_nodeaddr, b.src_nodeaddr);
+-		int toCmp = strcmp(a.dst_nodeaddr, b.dst_nodeaddr);
+-
+-		if (a.uid != b.uid) {
+-			return a.uid > b.uid ? true:false;
+-		}
+-		else if (a.action != b.action) {
+-			return a.action > b.action ? true:false;
+-		}
+-		else if (fromCmp != 0) {
+-			return fromCmp > 0 ? true:false;
+-		}
+-		else  {
+-			return toCmp > 0 ? true:false;
+-		}
+-		
+-	}
+-
+-	void src_nodeaddrSet(char* str) {
+-		int	srcLen = strlen(str) + 1;
+-		src_nodeaddr = new char[srcLen];
+-		strncpy(src_nodeaddr, str, srcLen);
+-	}
+-
+-	void dst_nodeaddrSet(char* str) {
+-		int dstLen = strlen(str) + 1;
+-		dst_nodeaddr = new char[dstLen];
+-		strncpy(dst_nodeaddr, str, dstLen);
+-	}
+-
+-	void actionSet(const char flag) {
+-		action = flag;
+-	}
+-
+-	void uidSet(const int val) {
+-		uid = val;
+-	}
+-
+-	char *src_nodeaddrGet() const{
+-		return src_nodeaddr;
+-	}
+-
+-	char *dst_nodeaddrGet() const{
+-		return dst_nodeaddr;
+-	}
+-
+-	char actionGet()const{
+-		return action;
+-	}
+-
+-	int uidGet() const{
+-		return uid;
+-	}
+-};
+-
+-
+-class Trace : public Connector {
+-protected:
+-	nsaddr_t src_;
+-    nsaddr_t dst_;
+-    int callback_;
+-
+-    virtual void format(int tt, int s, int d, Packet* p);
+-    void annotate(const char* s);
+-	int show_tcphdr_;  // bool flags; backward compat
+-	int show_sctphdr_; // bool flags; backward compat
+-	void callback();
+-public:
+-	Trace(int type);
+-    ~Trace();
+-
+-	BaseTrace *pt_;    // support for pkt tracing
+-
+-	int type_;	
+-    int command(int argc, const char*const* argv);
+-	static int get_seqno(Packet* p);
+-    void recv(Packet* p, Handler*);
+-	void recvOnly(Packet *p);
+-
+-	//Default rounding is to 6 digits after decimal
+-	//#define PRECISION 1.0E+6
+-	//According to freeBSD /usr/include/float.h 15 is the number of digits 
+-	// in a double.  We can specify all of them, because we're rounding to
+-	// 6 digits after the decimal and and %g removes trailing zeros.
+-	//#define TIME_FORMAT "%.15g"
+-	// annoying way of tackling sprintf rounding platform 
+-	// differences :
+-	// use round(Scheduler::instance().clock()) instead of 
+-	// Scheduler::instance().clock().
+-	//static double round (double x, double precision=PRECISION) {
+-	//return (double)floor(x*precision + 0.5)/precision;
+-	//}
+-
+-	virtual void write_nam_trace(const char *s);
+-	void trace(TracedVar* var);
+-	//void namdump();
+-};
+-
+-class DequeTrace : public Trace {
+-public:
+-	DequeTrace(int type) : Trace(type) {}
+-	~DequeTrace();
+-	void recv(Packet* p, Handler*);
+-
+-};
+-
+-#endif
