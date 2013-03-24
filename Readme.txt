@@ -49,3 +49,86 @@ Like.
 	set mean_delay [$my_trace GetMeanDelay “5.0.0” “3.0.2” “cbr” ]
 	puts “$mean_delay”
 You can refer to a handover between UMTS and WLAN according to mean_delay simulation example in the example directory. Have fun!
+
+
+
+Trouble shooting
+
+1 For gcc4.1.2 installaion
+	open configure file with "$vim configure" find the "# For an installed makeinfo, we require it to be from texinfo 4.2 or# higher, else we use the "missing" dummy.if ${MAKEINFO} --version \| egrep 'texinfo[^0-9]*([1-3][0-9]|4\.[2-9]|[5-9])' >/dev/null 2>&1; then:elseMAKEINFO="$MISSING makeinfo"fi;;"
+	and change the 'texinfo[^0-9]*([1-3][0-9]|4\.[2-9]|[5-9])' to 'texinfo[^0-9]*([1-3][0-9]|4\.[2-9]|4\.[1-9][0-9]*|[5-9])'
+
+2 For ns2.29-allinone installaion
+
+	when compiling the ns2 source code, there are some problems I have met and solutions are as follow.
+
+	(1).
+	./sctp/sctp.h:705: error: extra qualification 'SctpAgent::' on member 'DumpSendBuffer'
+	make: *** [trace/trace.o] Error 1
+	---just delete  'SctpAgent::'
+	(2).
+	./mobile/god.h:88: error：extra qualification ‘vector::’ on member ‘operator=’
+	./mobile/god.h:93: error：extra qualification ‘vector::’ on member ‘operator+=’
+	./mobile/god.h:98: error：extra qualification ‘vector::’ on member ‘operator==’
+	./mobile/god.h:101: error：extra qualification ‘vector::’ on member ‘operator!=’
+	---just delete 'vector::'。
+	(3).
+	queue/red.cc:874: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/red.cc:875: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/red.cc:876: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/red.cc:877: error: invalid conversion from ‘const char*’ to ‘char*’
+	---change "char *p" to "const char *p"
+	(4).
+	dsr/dsragent.cc: In member function ‘void DSRAgent::handleFlowForwarding(SRPacket&, int)’:
+	dsr/dsragent.cc:828: error: ‘XmitFlowFailureCallback’ was not declared in this scope
+	dsr/dsragent.cc: In member function ‘void DSRAgent::sendOutPacketWithRoute(SRPacket&, bool, Time)’:
+	dsr/dsragent.cc:1385: error: ‘XmitFailureCallback’ was not declared in this scope
+	dsr/dsragent.cc:1386: error: ‘XmitFlowFailureCallback’ was not declared in this scope
+	dsr/dsragent.cc:1403: error: ‘XmitFailureCallback’ was not declared in this scope
+
+	---add the declearation of the functions before line 828 
+		void XmitFlowFailureCallback(Packet *pkt, void *data);
+		void XmitFailureCallback(Packet *pkt, void *data);
+	(5).
+	diffusion/diffusion.cc:427: error: ‘XmitFailedCallback’ was not declared in this scope
+	make: *** [diffusion/diffusion.o] Error 1
+	---add the declearation of the functions before line 427
+		void XmitFailedCallback(Packet *pkt, void *data);
+	(6).
+	diffusion/omni_mcast.cc:388: error: ‘OmniMcastXmitFailedCallback’ was not declared in this scope
+	make: *** [diffusion/omni_mcast.o] Error 1
+	---add the declearation of the functions before line 388
+		void OmniMcastXmitFailedCallback(Packet *pkt, void *data);
+	(7).
+	queue/rio.cc:565: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/rio.cc:566: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/rio.cc:567: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/rio.cc:568: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/rio.cc:569: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/rio.cc:570: error: invalid conversion from ‘const char*’ to ‘char*’
+	queue/rio.cc:571: error: invalid conversion from ‘const char*’ to ‘char*’
+	make: *** [queue/rio.o] Error 1
+	---change "char *p" to "const char *p"
+	(8).
+	tcp/tcp-sack-rh.cc:68: error: extra qualification ‘SackRHTcpAgent::’ on member ‘newack’
+	make: *** [tcp/tcp-sack-rh.o] Error 1
+	---just delete ‘SackRHTcpAgent::’
+	(9).
+	pgm/pgm-agent.cc:307: error: extra qualification ‘PgmAgent::’ on member ‘trace_event’
+	make: *** [pgm/pgm-agent.o] Error 1
+	---just delete  ‘PgmAgent::’
+	(10).
+	pgm/pgm-sender.cc:189: error: extra qualification ‘PgmSender::’ on member ‘trace_event’
+	make: *** [pgm/pgm-sender.o] Error 1
+	---just delete ‘PgmSender::’
+	(11).
+	pgm/pgm-receiver.cc:186: error: extra qualification ‘PgmReceiver::’ on member ‘trace_event’
+	make: *** [pgm/pgm-receiver.o] Error 1
+	---just delete ‘PgmReceiver::’
+	(12).
+	setdest.h:26: error: extra qualification ‘vector::’ on member ‘operator=’
+	setdest.h:31: error: extra qualification ‘vector::’ on member ‘operator+=’
+	setdest.h:36: error: extra qualification ‘vector::’ on member ‘operator==’
+	setdest.h:39: error: extra qualification ‘vector::’ on member ‘operator!=’
+	make[1]: *** [setdest.o] Error 1
+	---just delete ‘vector::’
