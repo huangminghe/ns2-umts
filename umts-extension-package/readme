@@ -1,0 +1,3 @@
+ns-2.29-nist-mob-022707.tgz is the ns2.29 with UMTS extension package
+ns-allinone-2.29.tar.gz is the orgin ns2.29-allinone package
+what you need to do is extracting them then explace the ns2.29 with UMTS enabled one
