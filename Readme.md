@@ -5,8 +5,9 @@ this repo include a whole ns2.29-allinone and a simulation of handover between U
 How to
 
 1.Download ns2.29-allinone and its UMTS extension package
-Download the ns2.29-allinone here (http://www.isi.edu/nsnam/dist/)
-Download the UMTS extension package here ()
+	Two choices for you 
+	a. using the package I have compile and it works on my Fedora17.
+	b. download these two packages individully and make it works by yourself, what need to mention 	is both of choice are need you to recompile it. individule package of ns2.29-allinone and UMTS extension package is in the umts-extension-package directory. 
 
 2.Installation of ns2.29-allinone with UMTS enabled
 a.Installation preparation
