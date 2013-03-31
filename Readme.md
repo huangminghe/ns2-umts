@@ -6,11 +6,12 @@ this repo include a whole ns2.29-allinone and a simulation of handover between U
 How to
 
 1.Download ns2.29-allinone and its UMTS extension package
-	Two choices for you 
+    Two choices for you 
 	a. using the package I have compile and it works on my Fedora17.
-	b. download these two packages individully and make it works by yourself, what need to mention 	is both of choice are need you to recompile it. individule package of ns2.29-allinone and UMTS extension package is in the umts-extension-package directory. 
+	b. download these two packages individully and make it works by yourself, what need to mention 	is both of choice are need you to recompile it. individule package of ns2.29-allinone and UMTS extension package is in the umts-extension-package directory.
 
 2.Installation of ns2.29-allinone with UMTS enabled
+
 a.Installation preparation
 	Before you install ns2.29, you should install some necessary packages. For Fedora user, you need:
 		$ yum install gcc
@@ -33,16 +34,19 @@ a.Installation preparation
 	Then you have create the new symbol link to your new version of gcc4.1.2 by:
 	$sudo ln –s /directory/to/gcc4.1.2/bin/gcc gcc
 	And you should do that for all of them, like g++, cc, c++ or something more.
+
 b.	Installation of ns2.29 with UMTS enabled.
 	First thing you have to do is extracting the UMTS package and mv it to ns2.29-allinone to over cover the original ns2.29 directory within ns2.29-allinone directory. Then you can make install it with the simple command now:
 		$./install
 	There should be some troubles happen, and you can refer to
 	This troubles shooting notes here ()
+
 c.	Patch your ns2.29 with my real time performance monitor patch.
 	Actually, this version of ns2.29-umts-enabled have patched, but I think maybe a lot person may have troubles installing my own version, so if you install the brand new version of ns2.29-allinone and the UMTS extension package, you should patch it like following to make it has real time performance monitor feature.
 		$cd /to/ns2.29/trace/
 		$patch –p1 < trace.patch
 	Of cause you have to specify to location of patch file. After that you can remake your ns2.29 and have fun.
+
 3.	Usage of real time performance monitor function
 You just only type some command in your TCL scripts then easy to get the performance value of real time network.
 set my_trace [new Agent/RealtimeTrace]
@@ -51,8 +55,6 @@ Like.
 	set mean_delay [$my_trace GetMeanDelay “5.0.0” “3.0.2” “cbr” ]
 	puts “$mean_delay”
 You can refer to a handover between UMTS and WLAN according to mean_delay simulation example in the example directory. Have fun!
-
-
 
 Trouble shooting
 
